@@ -4,6 +4,7 @@ require('dotenv').config();
 const app=express()
 
 
+
 // mongoDB connection Start
 const uri = `mongodb+srv://mosqueDB:${process.env.DB_PASS}@cluster0.rdlfifr.mongodb.net/?retryWrites=true&w=majority`
 const client = new MongoClient(uri, {
