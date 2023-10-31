@@ -16,7 +16,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    const mosqueDB=client.db('mosque-platform')
+    // const mosqueDB=client.db('mosque-platform')
     // await client.db("admin").command({ ping: 1 });
     // console.log("Pinged your deployment. You successfully connected to MongoDB!");
     // const users=mosqueDB.collection('users');
