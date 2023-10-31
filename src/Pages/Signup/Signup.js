@@ -9,8 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const auth = getAuth(app);
 
 const OnSubmit = (data) => {
-  toast.success('Success!')
-  console.log(data);
+
 
   createUserWithEmailAndPassword(auth,data.mEmail,data.mPassword)
     .then(res => {
@@ -21,7 +20,12 @@ const OnSubmit = (data) => {
       //   .catch(e => console.log(e))
 
     })
-    .catch(error => console.log(error))
+    .catch(error =>{
+      console.log(error)
+      toast.error('something went wront!')
+      
+    })
+   
 }
 
 
