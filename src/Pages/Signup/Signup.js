@@ -9,6 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const auth = getAuth(app);
 
 const OnSubmit = (data) => {
+  toast.success('Success!')
   console.log(data);
 
   createUserWithEmailAndPassword(auth,data.mEmail,data.mPassword)
