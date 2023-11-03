@@ -8,21 +8,37 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const auth = getAuth(app);
 
+const saveMosqueToDB = async({name,division,address,imamName,contactNo,email}) => {
+
+  const mosque = {name,division,address,imamName,contactNo,email}
+  fetch('http://localhost:5000/mosques', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(mosque),
+  })
+    .then(res => res.json())
+    .then(data => {
+      if(data.acknowledged){
+        toast.success('Mosque Registration was Successful!')
+      }
+      else{
+        toast.error('something went Wrong!')
+      }
+    })
+
+}
+
 const OnSubmit = (data) => {
-  console.log(data);
+
   createUserWithEmailAndPassword(auth, data.email, data.password)
     .then(res => {
-      // console.log('user created');
-      toast.success('Mosque Registration was Successful!')
-      // updateUser(userInfo)
-      //   .then(res => saveUserToDB(data.name,data.email,data.address))
-      //   .catch(e => console.log(e))
-
+      saveMosqueToDB(data)
     })
     .catch(error => {
-      console.log(error)
-      toast.error('something went Wrong!')
-
+      // console.log(error)
+      toast.error('Already Registered!')
     })
 
 }
