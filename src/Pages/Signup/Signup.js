@@ -10,20 +10,20 @@ const auth = getAuth(app);
 
 const OnSubmit = (data) => {
   console.log(data);
-  // createUserWithEmailAndPassword(auth, data.email, data.password)
-  //   .then(res => {
-  //     // console.log('user created');
-  //     toast.success('Mosque Registration was Successful!')
-  //     // updateUser(userInfo)
-  //     //   .then(res => saveUserToDB(data.name,data.email,data.address))
-  //     //   .catch(e => console.log(e))
+  createUserWithEmailAndPassword(auth, data.email, data.password)
+    .then(res => {
+      // console.log('user created');
+      toast.success('Mosque Registration was Successful!')
+      // updateUser(userInfo)
+      //   .then(res => saveUserToDB(data.name,data.email,data.address))
+      //   .catch(e => console.log(e))
 
-  //   })
-  //   .catch(error => {
-  //     console.log(error)
-  //     toast.error('something went Wrong!')
+    })
+    .catch(error => {
+      console.log(error)
+      toast.error('something went Wrong!')
 
-  //   })
+    })
 
 }
 

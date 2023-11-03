@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import icon from '../../resources/icons/mosque.png'
 
 const Navbar = () => {
   return (
@@ -12,7 +13,7 @@ const Navbar = () => {
             </label>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
             <Link to={'/login'}>
-              Signup
+              Mosque Connect
               </Link>
               <li>
                 <Link >Parent</Link>
@@ -24,7 +25,8 @@ const Navbar = () => {
               <li><Link href='/signup'>Item 3</Link></li>
             </ul>
           </div>
-          <Link className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+          <Link className="btn btn-ghost normal-case text-xl"><img className='h-3/4' src={icon} alt="" />
+          Mosque Platform </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -44,7 +46,7 @@ const Navbar = () => {
 
         <div className="navbar-end">
       <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-          <Link className="btn">Button</Link>
+          <Link className="btn  ml-2 bg-[#dbd3d8]">Go</Link>
         </div>
       </div>
     </div>
