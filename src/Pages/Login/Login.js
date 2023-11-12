@@ -32,8 +32,7 @@ const Login = () => {
           .catch(error => {
             console.log(error);
           });
-          // res.ok && 
-          // toast.success('User Logged in!')
+
         
       }
       else{
@@ -71,7 +70,6 @@ const Login = () => {
       <div className='w-96'>
         <h2 className='text-center text-2xl font-bold'>Login</h2>
         <form onSubmit={handleSubmit(onSubmit)} >
-        <Toaster></Toaster>
           <div className="form-control w-full">
             <label className="label"><span className="label-text">
               Email</span></label>
@@ -99,9 +97,14 @@ const Login = () => {
               <option>Mosque</option>
               <option>User</option>
             </select>
-            {/* <label className="label"><span className="label-text">
-              Forgot Password?</span></label> */}
+            <Link to='/passwordReset' >
+            
+            <label className="label"><span className=
+            "hover:text-blue-600 hover:cursor-pointer  label-text">
+
+              Forgot Password?</span></label>
               
+            </Link>
           </div>
           <input value={'Login'} className='normal-case btn w-full my-4 ' type="submit" />
         </form>

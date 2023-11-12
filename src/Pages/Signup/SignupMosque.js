@@ -48,7 +48,6 @@ const SignupMosque = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   return (
     <form onSubmit={handleSubmit(OnSubmit)} >
-      <Toaster></Toaster>
     <div className="form-control w-full">
       <label className="label"><span className="label-text">
         Mosque Name</span></label>

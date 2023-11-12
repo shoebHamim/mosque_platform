@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import SignupMosque from './SignupMosque';
 import SignupUser from './SignupUser';
+import { Toaster } from 'react-hot-toast';
 
 const Signup = () => {
   const [showComponent, setShowComponent] = useState('mosque')
   return (
     <div className='min-h-[800px]  flex justify-center items-center'>
-      {/* <Toaster></Toaster> */}
+ 
       <div className='w-96 mt-4'>
         <h2 className='text-center text-2xl font-bold '>Sign Up</h2>
         <div className='flex justify-center mt-4'>
