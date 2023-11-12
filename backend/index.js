@@ -1,5 +1,5 @@
 const express=require('express')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ClientSession } = require('mongodb');
 require('dotenv').config();
 const app=express()
 app.use(express.json())
@@ -24,6 +24,7 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
     const mosques=mosqueDB.collection('mosques');
+    const users=mosqueDB.collection('users');
 
 
     app.post('/mosques',async(req,res)=>{
@@ -32,6 +33,13 @@ async function run() {
       res.send(result)
     })
 
+    app.post('/users',async(req,res)=>{
+      console.log(req.body);
+      const userData=req.body;
+      const result=await users.insertOne(userData)
+      res.send(result)
+
+    })
 
 
 

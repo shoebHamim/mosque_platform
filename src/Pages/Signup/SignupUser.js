@@ -7,9 +7,9 @@ import toast, { Toaster } from 'react-hot-toast';
 
 
 const auth = getAuth(app);
-const saveMosqueToDB = async({name,division,address,imamName,contactNo,email}) => {
+const saveUserToDB = async({name,division,address,imamName,contactNo,email}) => {
   const mosque = {name,division,address,imamName,contactNo,email}
-  fetch('http://localhost:5000/mosques', {
+  fetch('http://localhost:5000/users', {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
@@ -19,7 +19,7 @@ const saveMosqueToDB = async({name,division,address,imamName,contactNo,email}) =
     .then(res => res.json())
     .then(data => {
       if(data.acknowledged){
-        toast.success('Mosque Registration was Successful!')
+        toast.success('User Registration was Successful!')
       }
       else{
         toast.error('something went Wrong!')
@@ -30,7 +30,7 @@ const OnSubmit = (data) => {
 
   createUserWithEmailAndPassword(auth, data.email, data.password)
     .then(res => {
-      saveMosqueToDB(data)
+      saveUserToDB(data)
     })
     .catch(error => {
       toast.error('Already Registered!')
@@ -88,8 +88,7 @@ const SignupUser = () => {
           // pattern: { value: /^[A-Za-z0-9.]+$/i, message: 'Password must be strong' }
         })} />
       {errors.password && <p className='text-xs text-red-600'>{errors.password.message}</p>}
-      <label className="label"><span className="label-text">
-        Forgot Password?</span></label>
+
     </div>
     <input value={'Register'} className='btn w-full my-4 ' type="submit" />
   <p>Already have an account? <Link to={'/login'} className='text-primary'>Login</Link></p>
