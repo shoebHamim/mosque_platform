@@ -32,8 +32,14 @@ const Login = () => {
                 // pattern: { value: /^[A-Za-z0-9.]+$/i, message: 'Password must be strong' }
               })} />
             {errors.password && <p className='text-xs text-red-600'>{errors.password.message}</p>}
-            <label className="label"><span className="label-text">
-              Forgot Password?</span></label>
+
+            <select className="select select-bordered w-1/3 mt-4 focus:outline-none">
+              <option>Mosque</option>
+              <option>User</option>
+            </select>
+            {/* <label className="label"><span className="label-text">
+              Forgot Password?</span></label> */}
+              
           </div>
           <input value={'Register'} className='btn w-full my-4 ' type="submit" />
         </form>
