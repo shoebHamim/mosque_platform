@@ -10,9 +10,9 @@ const auth = getAuth(app)
 const PasswordReset = () => {
   const navigate=useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm();
-  
-  function handleForgotPassword(data) {
 
+
+  function handleForgotPassword(data) {
     sendPasswordResetEmail(auth,data.email)
       .then(() => {
         toast.success('Reset Link is sent to your email!')
