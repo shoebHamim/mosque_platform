@@ -38,9 +38,17 @@ async function run() {
       const userData=req.body;
       const result=await users.insertOne(userData)
       res.send(result)
-
     })
-
+    app.get('/users/:email', async (req, res) => {
+      const email = req.params.email;
+      const user = await users.findOne({ email: email });
+      res.send({found:user?true:false})
+    });    
+    app.get('/mosques/:email', async (req, res) => {
+      const email = req.params.email;
+      const user = await mosques.findOne({ email: email });
+      res.send({found:user?true:false})
+    });
 
 
 
