@@ -25,7 +25,7 @@ function App() {
       formDataUpload.append('description', formData.description);
       formDataUpload.append('image', formData.image);
 
-      const response = await axios.post('http://localhost:3000/submit-form', formDataUpload, {
+      const response = await axios.post('http://localhost:5000/submit-form', formDataUpload, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
