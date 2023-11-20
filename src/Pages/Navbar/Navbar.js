@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import icon from '../../resources/icons/mosque.png'
 
+const Realm = require("realm-web");
+const app = new Realm.App({ id: process.env.REACT_APP_mongodb_app_id });
+
+
 const Navbar = () => {
+  // for search autocomplete using mongodb custom function
+  const getAutoComplete = async (query) => {
+    try {
+      const user = await app.logIn(Realm.Credentials.anonymous())
+      const searchAutoComplete = await user.functions.searchAutoComplete(query)
+      return searchAutoComplete
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  const [autoComplete, setAutoComplete] = useState([])
+  const handleSearchChange = async (e) => {
+    const query = e.target.value
+    if (query) {
+      const autoCompleteData = await getAutoComplete(query)
+      setAutoComplete(autoCompleteData)
+    }
+    else {
+      setAutoComplete([])
+    }
+
+  }
+
   return (
     <div className=''>
       <div className="navbar bg-base-200">
@@ -45,7 +75,17 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
-      <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+        <div>
+            <input onChange={handleSearchChange}
+              type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+            <ul className={` absolute z-10 bg-base-200 ml-2 rounded-xl ${autoComplete.length && `p-5`} `}>
+              {autoComplete.map(item =>
+                <li key={item._id} className='px-4 py-2 hover:bg-gray-300 cursor-pointer rounded-lg'
+                >{item.name}</li>
+              )}
+            </ul>
+          </div>
+
           <Link className="btn  ml-2 bg-[#dbd3d8]">Go</Link>
         </div>
       </div>
