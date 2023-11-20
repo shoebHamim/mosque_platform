@@ -20,11 +20,12 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
   .catch((error) => {
     console.error('Error connecting to MongoDB Atlas:', error);
   });
+
 // Define your MongoDB schema and model
 const mosqueSchema = new mongoose.Schema({
   name: String,
   description: String,
-  imageUrl: String,
+  images: [String], // Array to store image URLs
 });
 
 const Mosque = mongoose.model('mosques', mosqueSchema);
@@ -34,19 +35,19 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // API endpoint to handle form submissions with image upload
-app.post('/submit-form', upload.single('image'), async (req, res) => {
+app.post('/submit-form', upload.array('images', 3), async (req, res) => {
   try {
     const { name, description } = req.body;
-    const image = req.file;
+    const images = req.files.map((file) => {
+      return {
+        data: file.buffer,
+        contentType: file.mimetype,
+      };
+    });
 
-    // Handle image processing and storage as needed
-    // For simplicity, we will just convert the image to a data URL and store it as a string
-    const imageUrl = `data:${image.mimetype};base64,${image.buffer.toString('base64')}`;
+    const savedMosque = await Mosque.create({ name, description, images });
 
-    const newMosque = new Mosque({ name, description, imageUrl });
-    await newMosque.save();
-
-    res.json({ success: true });
+    res.json({ success: true, data: savedMosque });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });

@@ -5,13 +5,15 @@ function App() {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    image: null,
+    images: Array(3).fill(null), // Array to store 3 image files
   });
   const [submissionMessage, setSubmissionMessage] = useState('');
 
-  const handleChange = (e) => {
-    if (e.target.name === 'image') {
-      setFormData({ ...formData, image: e.target.files[0] });
+  const handleChange = (e, index) => {
+    if (e.target.name === 'images') {
+      const newImages = [...formData.images];
+      newImages[index] = e.target.files[0];
+      setFormData({ ...formData, images: newImages });
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
@@ -23,7 +25,10 @@ function App() {
       const formDataUpload = new FormData();
       formDataUpload.append('name', formData.name);
       formDataUpload.append('description', formData.description);
-      formDataUpload.append('image', formData.image);
+
+      formData.images.forEach((image, index) => {
+        formDataUpload.append(`images`, image);
+      });
 
       const response = await axios.post('http://localhost:5000/submit-form', formDataUpload, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -34,7 +39,7 @@ function App() {
         setFormData({
           name: '',
           description: '',
-          image: null,
+          images: Array(3).fill(null),
         });
       }
     } catch (error) {
@@ -45,9 +50,9 @@ function App() {
 
   return (
     <div>
-      <h1>Mosque Form</h1>
+      <h1>Please Fill up the Additional Description of your Mosque</h1>
       <form onSubmit={handleSubmit}>
-        <label>
+      <label>
           Name:
           <input type="text" name="name" value={formData.name} onChange={handleChange} />
         </label>
@@ -56,10 +61,20 @@ function App() {
           Description:
           <textarea name="description" value={formData.description} onChange={handleChange} />
         </label>
+        <br/> 
+        <label>
+          Image 1:
+          <input type="file" name="images" onChange={(e) => handleChange(e, 0)} />
+        </label>
         <br />
         <label>
-          Image:
-          <input type="file" name="image" onChange={handleChange} />
+          Image 2:
+          <input type="file" name="images" onChange={(e) => handleChange(e, 1)} />
+        </label>
+        <br />
+        <label>
+          Image 3:
+          <input type="file" name="images" onChange={(e) => handleChange(e, 2)} />
         </label>
         <br />
         <button type="submit">Submit</button>
