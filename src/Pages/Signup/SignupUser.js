@@ -18,7 +18,7 @@ const saveUserToDB = async({name,division,address,imamName,contactNo,email}) => 
   })
     .then(res => res.json())
     .then(data => {
-      if(data.acknowledged){
+      if(data._id){
         toast.success('User Registration was Successful!')
       }
       else{
