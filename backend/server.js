@@ -12,10 +12,10 @@ dbConnect();
 // routes
 const mosqueRoute=require('./Routes/mosqueRoute')
 const userRoute=require('./Routes/userRoute')
+const featuredRoute=require('./Routes/featuredRoute')
 app.use('/users',userRoute)
 app.use('/mosques',mosqueRoute)
-
-
+app.use('/featured',featuredRoute)
 
 
 
