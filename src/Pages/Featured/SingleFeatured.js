@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Link, useParams, useResolvedPath } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
-import './carouselbutton.css';
-import './style.css';
+
+
 
 function SingleFeatured() {
   const [mosque, setMosque] = useState(null);
   const { id } = useParams();
-  console.log(useParams());
 
   useEffect(() => {
     const fetchMosqueDetails = async () => {
@@ -27,9 +26,7 @@ function SingleFeatured() {
 
 
   return (
-    // <></>
     <div className="bg-white text-black">
-
       <div className="container mx-auto flex">
         {mosque ? (
           <div>
@@ -54,47 +51,48 @@ function SingleFeatured() {
           </div>
         )}
       </div>
-
-      <div style={{ display: 'flex' }}>
+        
+      <div style={{ display: 'flex' }}>       
         {mosque ? (
-          <div style={{ flex: 1.5, padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '5rem' }}>
-            <h1 style={{ fontWeight: 'bold' }}>{mosque.name}</h1>
-            <h7 style={{ fontSize: 'smaller' }}>{mosque.location}</h7>
-            <h6 style={{ fontSize: 'smaller' }}>Division: {mosque.division}</h6>
-
-
-            <p>{mosque.description}</p>
-            <Link to={mosque.infoURL}>
-              <a className="link link-primary">See more details</a>
-            </Link>
-
-          </div>
+        <div style={{ flex: 1.5, padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' , marginLeft: '5rem'}}>
+      <h1 style={{ fontWeight: 'bold' }}>{mosque.name}</h1>
+      <h7 style={{ fontSize: 'smaller' }}>{mosque.location}</h7>
+      <h6 style={{ fontSize: 'smaller' }}>Division: {mosque.division}</h6>
+        
+          
+          <p>{mosque.description}</p>
+          <Link to={mosque.infoURL}>
+            <p className="link link-primary">See more details</p>
+          </Link>
+          
+        </div>
         ) : null}
         {mosque ? (
-          <div style={{ flex: 1, padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <iframe
-              title="Mosque Location"
-              className="w-full h-700"
-              style={{ border: 1, width: "400px", height: "400px" }}
-              src={mosque.locationURL}
-              allowFullScreen
-            ></iframe>
+        <div style={{ flex: 1, padding: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <iframe
+            title="Mosque Location"
+            className="w-full h-700" 
+            style={{ border: 1, width: "400px", height: "400px" }} 
+            src={mosque.locationURL}
+            allowFullScreen
+          ></iframe>
 
-          </div>
+        </div>
         ) : null}
       </div>
 
-
-
+      
+      
       {mosque ? (
-        <div className="text-center">
-          <Link to={`/Edit/${mosque._id}`}>
-            <button className="sexy-button">
-              Go to Edit Page
-            </button>
-          </Link>
-        </div>
-      ) : null}
+      <div className="text-center">
+      <Link to={`/Edit/${mosque._id}`}>
+        <button className="sexy-button">
+          Go to Edit Page
+        </button>
+      </Link>
+      </div>
+      ): null}
+  
 
     </div>
   );

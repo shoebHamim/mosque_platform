@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SignupMosque from './SignupMosque';
 import SignupUser from './SignupUser';
-import { Toaster } from 'react-hot-toast';
+
 
 const Signup = () => {
   const [showComponent, setShowComponent] = useState('mosque')

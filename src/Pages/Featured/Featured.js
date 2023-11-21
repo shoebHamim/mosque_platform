@@ -47,7 +47,7 @@ export default function Featured() {
      
 
         {isDropdownVisible && (
-          <ul tabIndex={0} className=" absolute popup-content dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ">
+          <ul tabIndex={0} className="left-0 absolute popup-content dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ">
             <li>
               <p
                 className="text-black cursor-pointer hover:text-gray-700"
@@ -152,7 +152,7 @@ export default function Featured() {
                     <td>{mosque.location}</td>
                     <td>
                       <Link to={`/featured/${mosque._id}`}>
-                        <button className="sexy-button ">
+                        <button className="btn-sm text-white bg-blue-500 rounded-2xl  ">
                           Show Details
                         </button>
                       </Link>
