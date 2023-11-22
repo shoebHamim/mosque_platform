@@ -8,4 +8,4 @@ installed: {react-responsive-carousal,
 
 
 
-plan: homepage needs a 
+plan: landing homepage needed. Hamim jeita banaisilo
