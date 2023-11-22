@@ -6,8 +6,8 @@ const getAllMosques=async(req,res)=>{
     const mosques = await Mosque.find({});
     res.json(mosques);
   } catch (err) {
-    console.error('Error fetching users:', err);
-    res.status(500).send('Error fetching users');
+    console.error('Error fetching mosque:', err);
+    res.status(500).send('Error fetching mosque');
   }
 }
 const mosqueExistsbyEmail=async (req, res) => {
