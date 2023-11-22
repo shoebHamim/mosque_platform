@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { app } from "../../firebase/firebase.init";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import toast, { Toaster } from 'react-hot-toast';
-import axios from 'axios';
+import toast from 'react-hot-toast';
 const auth = getAuth(app);
 
 const imgHostKey=process.env.REACT_APP_imgbb_key;
@@ -42,6 +41,7 @@ const saveMosqueToDB = async({name,division,address,imamName,contactNo,email,des
         })
     }
     })
+    
 };
 
 const OnSubmit = (data) => {
