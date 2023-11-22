@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { app } from "../../firebase/firebase.init";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 
 const auth = getAuth(app);

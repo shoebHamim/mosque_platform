@@ -15,10 +15,10 @@ const Navbar = () => {
       return searchAutoComplete
     }
     catch (error) {
+      
       console.log(error);
     }
   }
-
 
   const [autoComplete, setAutoComplete] = useState([])
   const handleSearchChange = async (e) => {
@@ -30,9 +30,7 @@ const Navbar = () => {
     else {
       setAutoComplete([])
     }
-
   }
-
   return (
     <div className=''>
       <div className="navbar bg-base-200">
@@ -42,17 +40,9 @@ const Navbar = () => {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </label>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <Link to={'/'}>
-              Mosque Platform
-              </Link>
-              <li>
-                <Link >Parent</Link>
-                <ul className="p-2">
-                  <li><Link>Submenu 1</Link></li>
-                  <li><Link>Submenu 2</Link></li>
-                </ul>
-              </li>
-              <li><Link href='/login'>Login</Link></li>
+              <li><Link to={'/signup'}>Signup</Link></li>
+            <li><Link to={'/featured'}>Featured</Link></li>
+              <li><Link to='/login'>Login</Link></li>
             </ul>
           </div>
           <Link className="btn btn-ghost normal-case text-xl"><img className='h-3/4' src={icon} alt="" />
@@ -60,21 +50,11 @@ const Navbar = () => {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li><Link to={'/signup'}>Signup</Link></li>
             <li><Link to={'/featured'}>Featured</Link></li>
-            <li tabIndex={0}>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                  <li><Link>Submenu 1</Link></li>
-                  <li><Link>Submenu 2</Link></li>
-                </ul>
-              </details>
-            </li>
+            <li><Link to={'/signup'}>Signup</Link></li>
             <li><Link to={'/login'}>Login</Link></li>
           </ul>
         </div>
-
         <div className="navbar-end">
         <div>
             <input onChange={handleSearchChange}
@@ -86,7 +66,6 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-
           <Link className="btn  ml-2 bg-[#dbd3d8]">Go</Link>
         </div>
       </div>

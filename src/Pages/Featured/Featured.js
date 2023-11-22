@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 
 export default function Featured() {
-  const [mosques, setMosques] = useState(null);
+  const [mosques, setMosques] = useState('');
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState(''); 
 
   useEffect(() => {
     const fetchMosques = async () => {
-      const response = await fetch('/api/mosques');
+      const response = await fetch('http://localhost:5000/featured');
       const json = await response.json();
 
       if (response.ok) {
@@ -30,19 +30,16 @@ export default function Featured() {
     setDropdownVisible(false); 
   };
 
-  const filteredMosques = mosques
-    ? selectedFilter
-      ? mosques.filter((mosque) => mosque.division === selectedFilter)
+  const filteredMosques = mosques? selectedFilter? mosques.filter((mosque) => mosque.division === selectedFilter)
       : mosques
     : null;
 
   return (
     <div>
-      {/* <Navbar /> */}
-      <div className="popup-container">
+      <div className="popup-container relative">
       <label
         tabIndex={0}
-        className="btn m-1 text-black bg-white hover:bg-gray-400 rounded-full px-4 py-2 transition-all duration-300"
+        className=" btn m-1 normal-case text-black bg-white hover:bg-gray-400 rounded-full px-4 py-2 transition-all duration-300"
         onClick={toggleDropdown}
       >
         {selectedFilter ? `Filter: ${selectedFilter}` : 'All Divisions'}
@@ -50,78 +47,78 @@ export default function Featured() {
      
 
         {isDropdownVisible && (
-          <ul tabIndex={0} className="popup-content dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 top-0 right-0">
+          <ul tabIndex={0} className="left-0 absolute popup-content dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ">
             <li>
-              <a
+              <p
                 className="text-black cursor-pointer hover:text-gray-700"
                 onClick={() => handleFilterChange('Dhaka')}
               >
                 Dhaka
-              </a>
+              </p>
             </li>
             <li>
-              <a
+              <p
                 className="text-black cursor-pointer hover:text-gray-700"
                 onClick={() => handleFilterChange('Chittagong')}
               >
                 Chittagong
-              </a>
+              </p>
             </li>
             <li>
-              <a
+              <p
                 className="text-black cursor-pointer hover:text-gray-700"
                 onClick={() => handleFilterChange('Rangpur')}
               >
                 Rangpur
-              </a>
+              </p>
             </li>
             <li>
-              <a
+              <p
                 className="text-black cursor-pointer hover:text-gray-700"
                 onClick={() => handleFilterChange('Rajshahi')}
               >
                 Rajshahi
-              </a>
+              </p>
             </li>
             <li>
-              <a
+              <p
                 className="text-black cursor-pointer hover:text-gray-700"
                 onClick={() => handleFilterChange('Barisal')}
               >
                 Barisal
-              </a>
+              </p>
             </li>
             <li>
-              <a
+              <p
                 className="text-black cursor-pointer hover:text-gray-700"
                 onClick={() => handleFilterChange('Khulna')}
               >
                 Khulna
-              </a>
+              </p>
             </li>
             <li>
-              <a
+              <p
                 className="text-black cursor-pointer hover:text-gray-700"
                 onClick={() => handleFilterChange('Sylhet')}
               >
                 Sylhet
-              </a>
+              </p>
             </li>
             <li>
-              <a
+              <p
                 className="text-black cursor-pointer hover:text-gray-700"
                 onClick={() => handleFilterChange('Mymensingh')}
               >
                 Mymensingh
-              </a>
+              </p>
             </li>
             <li>
-              <a
+              <p
                 className="text-black cursor-pointer hover:text-gray-700"
-                onClick={() => handleFilterChange('All Divisions')}
+                onClick={() => handleFilterChange('')}
               >
                 All Divisions
-              </a>
+              </p>
             </li>
             
           </ul>
@@ -154,8 +151,8 @@ export default function Featured() {
                     <td>{mosque.division}</td>
                     <td>{mosque.location}</td>
                     <td>
-                      <Link to={`/display_all/${mosque._id}`}>
-                        <button className="sexy-button">
+                      <Link to={`/featured/${mosque._id}`}>
+                        <button className="btn-sm text-white bg-blue-500 rounded-2xl  ">
                           Show Details
                         </button>
                       </Link>

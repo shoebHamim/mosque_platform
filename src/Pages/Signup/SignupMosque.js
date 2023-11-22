@@ -3,44 +3,55 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { app } from "../../firebase/firebase.init";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import toast, { Toaster } from 'react-hot-toast';
-
-
+import toast from 'react-hot-toast';
 const auth = getAuth(app);
 
-const saveMosqueToDB = async({name,division,address,imamName,contactNo,email}) => {
+const imgHostKey=process.env.REACT_APP_imgbb_key;
 
-  const mosque = {name,division,address,imamName,contactNo,email}
-  fetch('http://localhost:5000/mosques', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify(mosque),
+const saveMosqueToDB = async({name,division,address,imamName,contactNo,email,description,img}) => {
+  const mosque = {name,division,address,imamName,contactNo,email,description,img};
+  // generating img url uploading it to imgbb
+  const formData =new FormData()
+  formData.append('image',img[0])
+  const url=`https://api.imgbb.com/1/upload?key=${imgHostKey}`
+  fetch(url,{
+    method:'POST',
+    body:formData
   })
-    .then(res => res.json())
-    .then(data => {
-      if(data._id){
-        toast.success('Mosque Registration was Successful!')
-      }
-      else{
-        toast.error('something went Wrong!')
-      }
+  .then(res=>res.json())
+  .then(imgData=>{
+    if(imgData.success){
+      // img uploaded and imgData.data.url is the url
+      mosque.img=imgData.data.url
+      fetch('http://localhost:5000/mosques', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(mosque),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data._id){
+            toast.success('Mosque Registration was Successful!')
+          }
+          else{
+            toast.error('something went Wrong!')
+          }
+        })
+    }
     })
-
-}
+    
+};
 
 const OnSubmit = (data) => {
-
   createUserWithEmailAndPassword(auth, data.email, data.password)
     .then(res => {
       saveMosqueToDB(data)
     })
     .catch(error => {
-      // console.log(error)
       toast.error('Already Registered!')
     })
-
 }
 
 
@@ -103,6 +114,26 @@ const SignupMosque = () => {
         })} />
       {errors.contactNo && <p className='text-xs text-red-600'>{errors.contactNo.message}</p>}
     </div>
+    <div className="form-control w-full">
+      <label className="label"><span className="label-text">
+        Description </span></label>
+      <textarea
+        className="input input-bordered w-full h-20" {...register('description', {
+          required: 'Enter Description',
+        })} />
+      {errors.description && <p className='text-xs text-red-600'>{errors.description.message}</p>}
+    </div>
+
+    <div className="form-control w-full">
+      <label className="label"><span className="label-text">
+        Image of Mosque </span></label>
+      <input type='file'
+        className="input input-bordered w-full p-2 cursor-pointer" {...register('img', {
+          required: 'Upload an Image',
+        })} />
+      {errors.img && <p className='text-xs text-red-600'>{errors.img.message}</p>}
+    </div>
+    
 
     <div className="form-control w-full">
       <label className="label"><span className="label-text">

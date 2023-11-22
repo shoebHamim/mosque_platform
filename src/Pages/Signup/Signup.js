@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SignupMosque from './SignupMosque';
 import SignupUser from './SignupUser';
-import { Toaster } from 'react-hot-toast';
+
 
 const Signup = () => {
   const [showComponent, setShowComponent] = useState('mosque')
@@ -13,7 +13,7 @@ const Signup = () => {
         <div className='flex justify-center mt-4'>
           <button className={`normal-case btn ${showComponent === 'mosque' ? 'bg-blue-500 hover:bg-blue-500 disabled text-white hover:none' : ''}`}
             onClick={() => setShowComponent('mosque')}>As Mosque</button>
-          <button className={`normal-case btn ml-4 ${showComponent === 'user' ? 'bg-blue-500  hover:bg-blue-500 text-white' : ''}`}
+          <button className={` normal-case btn ml-4 ${showComponent === 'user' ? 'bg-blue-500  hover:bg-blue-500 text-white' : ''}`}
             onClick={() => setShowComponent('user')}>As User</button>
         </div>
 
