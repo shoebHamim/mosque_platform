@@ -1,0 +1,11 @@
+added: {Component folder,
+        footer,
+        }
+
+installed: {react-responsive-carousal,
+            }
+
+
+
+
+plan: homepage needs a 
