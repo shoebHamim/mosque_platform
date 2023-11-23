@@ -5,8 +5,9 @@ import icon from '../../resources/icons/mosque.png'
 const Realm = require("realm-web");
 const app = new Realm.App({ id: process.env.REACT_APP_mongodb_app_id });
 
-
 const Navbar = () => {
+const [loadingAutoComplete,setLoadingAutoComplete]=useState(false)
+
   // for search autocomplete using mongodb custom function
   const getAutoComplete = async (query) => {
     try {
@@ -22,13 +23,16 @@ const Navbar = () => {
 
   const [autoComplete, setAutoComplete] = useState([])
   const handleSearchChange = async (e) => {
+    setLoadingAutoComplete(true)
     const query = e.target.value
     if (query) {
       const autoCompleteData = await getAutoComplete(query)
       setAutoComplete(autoCompleteData)
+      setLoadingAutoComplete(false)
     }
     else {
       setAutoComplete([])
+      setLoadingAutoComplete(false)
     }
   }
   return (
@@ -57,9 +61,15 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
         <div>
-            <input onChange={handleSearchChange}
+          <div className='relative'>
+          <input onChange={handleSearchChange}
               type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+              {loadingAutoComplete&&
+            <span className="loading loading-dots loading-sm absolute right-3 top-3"></span>
+            }
+          </div>
             <ul className={` absolute z-10 bg-base-200 ml-2 rounded-xl ${autoComplete.length && `p-5`} `}>
+  
               {autoComplete.map(item =>
                 <li key={item._id} className='px-4 py-2 hover:bg-gray-300 cursor-pointer rounded-lg'
                 >{item.name}</li>

@@ -4,7 +4,7 @@ import Login from "../Pages/Login/Login";
 import Featured from "../Pages/Featured/Featured";
 import PasswordReset from "../Pages/Login/PasswordReset";
 import SingleFeatured from "../Pages/Featured/SingleFeatured";
-import Test from '../Test';
+import Test from '../test';
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Signup } = require("../Pages/Signup/Signup");
