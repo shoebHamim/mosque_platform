@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const News = require('./newsModel');
 
 const mosqueSchema = new mongoose.Schema({
   name: String,
@@ -7,9 +8,10 @@ const mosqueSchema = new mongoose.Schema({
   imamName: String,
   contactNo: String,
   email: String,
-  description:String,
-  img:String,
-  subscribers:Array,
+  description: String,
+  img: String,
+  subscribers: Array,
+  news: [News.schema], // Embed the news schema
 });
 
 const Mosque = mongoose.model('Mosque', mosqueSchema);

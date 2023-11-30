@@ -13,6 +13,11 @@ dbConnect();
 const mosqueRoute=require('./Routes/mosqueRoute')
 const userRoute=require('./Routes/userRoute')
 const featuredRoute=require('./Routes/featuredRoute')
+// server.js
+const newsRoute = require('./Routes/newsRoute');
+app.use('/news', newsRoute);
+
+
 app.use('/users',userRoute)
 app.use('/mosques',mosqueRoute)
 app.use('/featured',featuredRoute)
@@ -26,4 +31,4 @@ app.get('/*', async (req, res) => {
 });
 app.listen(5000, () => {
   console.log('Server started on port 5000');
-});
+}); 

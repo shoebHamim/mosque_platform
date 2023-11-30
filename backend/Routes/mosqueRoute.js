@@ -8,4 +8,5 @@ router.get('/',mosqueControllers.getAllMosques)
 router.get('/:email',mosqueControllers.mosqueExistsbyEmail)
 
 
-module.exports=router
+
+module.exports = router;
