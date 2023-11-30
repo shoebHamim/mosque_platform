@@ -8,7 +8,7 @@ import PasswordReset from "../Pages/Login/PasswordReset";
 import SingleFeatured from "../Pages/Featured/SingleFeatured";
 import Test from '../test';
 import Signup from "../Pages/Signup/Signup";
-
+import News from "../Pages/News/News";
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -24,6 +24,7 @@ export const router = createBrowserRouter([
       { path: '/featured/:id', element: <SingleFeatured></SingleFeatured> },
       { path: 'passwordReset', element: <PasswordReset></PasswordReset> },
       { path: '/test', element: <Test></Test> },
+      { path: '/news', element: <News></News> },
  
     ],
   },
