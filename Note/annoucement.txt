@@ -1,0 +1,51 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+
+
+const Annoucement = () => {
+    // const [mosque, setMosque] = useState(null);
+    const [annoucement, setAnnoucement] = useState('')
+    const [error, setError] = useState(null)
+    // const { id } = useParams();
+
+
+    const handleSubmit = async (e) => {
+        e.preventDeafult()
+        const mosque = {annoucement}
+  
+const response = await fetch('http://localhost:5000/annoucements', {
+method: 'POST',
+body: JSON.stringify(mosque),
+headers: {
+    'Content-Type': 'application/json'
+}
+})
+const json = await response.json()
+if (!response.ok){
+    setError(json.error)
+}
+if (response.ok){
+    setAnnoucement('')
+    setError(null)
+    console.log('New annoucement added',json)
+}
+
+}
+
+
+  return (
+        <div>
+          <form className="create">
+            
+         <input 
+            type="text"
+            onChange={(e) => setAnnoucement(e.target.value)}
+            value={annoucement} placeholder = "Add new annoucement"
+          />
+          <button>Submit</button>
+            {error && <div className='error'>{error}</div>}
+          </form>
+          </div>
+  );
+}
+export default Annoucement;

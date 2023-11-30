@@ -7,7 +7,8 @@ import SingleFeatured from "../Pages/Featured/SingleFeatured";
 import Test from '../Test';
 import SingleRegistered from "../Pages/Registered/SingleRegistered";
 import Registered from "../Pages/Registered/Registered";
-
+import Announcement from "../Pages/announcement/announcement";
+import UserPage from "../Pages/userpage/userpage";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Signup } = require("../Pages/Signup/Signup");
@@ -24,6 +25,8 @@ export const router = createBrowserRouter([
       {path:'/featured/:id',element:<SingleFeatured></SingleFeatured>},
       {path:'/registered',element:<Registered></Registered>},
       {path:'/registered/:id',element:<SingleRegistered></SingleRegistered>},
+      {path:'/userpage/:id',element:<UserPage></UserPage>},
+      {path:'/annoucement',element:<Announcement></Announcement>},
       {path:'passwordReset',element:<PasswordReset></PasswordReset>},
       {path:'/test',element:<Test></Test>}
 

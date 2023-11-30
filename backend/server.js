@@ -14,10 +14,16 @@ const mosqueRoute=require('./Routes/mosqueRoute')
 const userRoute=require('./Routes/userRoute')
 const featuredRoute=require('./Routes/featuredRoute')
 const registeredRoute=require('./Routes/registeredRoute')
+const announcementRoute=require('./Routes/announcementRoute')
+const userpageRoute=require('./Routes/userpageRoute')
+
+
 app.use('/users',userRoute)
 app.use('/mosques',mosqueRoute)
 app.use('/featured',featuredRoute)
 app.use('/registered',registeredRoute)
+app.use('/announcement',announcementRoute)
+app.use('/userpage',userpageRoute)
 
 
 

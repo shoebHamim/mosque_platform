@@ -3,8 +3,7 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Carousel3 from '../../components/carousal3';
 import Carousel2 from '../../components/carousal2';
-import { UserState } from 'realm-web';
-import Announcement from  '../announcement/announcement';
+
 function SingleRegistered() {
   const [mosque, setMosque] = useState(null);
   const { id } = useParams();
@@ -49,21 +48,16 @@ function SingleRegistered() {
 
         {/* Right Column */}
         <div style={{ flex: 0, padding: '0rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        
-         
-            <Announcement/>
-          
-          
-          {/* <div className="form-control">
-            <textarea className="textarea textarea-bordered w-max h-15" placeholder="New announcement"></textarea>
-            <Link to={`/announcement/${mosque._id}`}>
+          {/* Embedded Map */}
+          Annoucment 
+          <Link to={`/Edit/${mosque._id}`}>
             <button className="btn-sm text-white bg-blue-500 rounded-2xl">
-              Add new annoucment
+              Subscribe
             </button>
           </Link>
-          </div> */}
-        
-          
+          <div className="form-control w-full max-w-xs">
+            <input type="text" placeholder="Type here" className="input input-bordered w-15px max-w-xs" />
+          </div>
         </div>
       </div>
 
