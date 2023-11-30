@@ -6,7 +6,7 @@ import Login from "../Pages/Login/Login";
 import Featured from "../Pages/Featured/Featured";
 import PasswordReset from "../Pages/Login/PasswordReset";
 import SingleFeatured from "../Pages/Featured/SingleFeatured";
-import Test from '../Test';
+import Test from '../test';
 import Signup from "../Pages/Signup/Signup";
 import News from "../Pages/News/News"; // Import the News component
 
