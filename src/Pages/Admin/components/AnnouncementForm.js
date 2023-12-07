@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import styles from './AnnouncementForm.module.css';
 
 
 const AnnouncementForm = () => {
@@ -41,10 +42,10 @@ const AnnouncementForm = () => {
     handleAnnouncement()
   }
   return (
-    <div>
+    <div className={styles.announcementContainer}>
       <ToastContainer />
-      <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="Enter announcement text"></textarea>
-      <button onClick={handleClick}>Submit Announcement</button>
+      <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="Enter announcement text" className={styles.textareaField}></textarea>
+      <button className={styles.deleteButton} onClick={handleClick}>Submit Announcement</button>
     </div>
   );
 };

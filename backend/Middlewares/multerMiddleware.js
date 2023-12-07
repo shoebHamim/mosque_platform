@@ -1,24 +1,33 @@
+const path = require('path')
 const multer = require('multer');
 
-const createMulterMiddleware = () => {
-  const storage = multer.memoryStorage();
 
-  const fileFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith('image/')) {
-      cb(null, true);
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'Pictures/')
+  },
+  filename: function(req, file, cb) {
+    let ext = path.extname(file.originalname)
+    cb(null, Date.now() + ext)
+  }
+})
+
+var upload = multer ({
+  storage: storage,
+  fileFilter: function (req, file, callback) {
+    if (
+      file.mimetype === "image/png" ||
+      file.mimetype === "image/jpg"
+    ){
+      callback(null, true)
     } else {
-      cb(new Error('Invalid file type. Only images are allowed.'));
+      console.log('only jpg and png file supported')
+      callback(null, false)
     }
-  };
+  },
+  limits: {
+    fileSize:1024 * 1024 * 2
+  }
+})
 
-  return multer({
-    storage: storage,
-    fileFilter: fileFilter,
-  }).fields([
-    { name: 'pictures1', maxCount: 1 },
-    { name: 'pictures2', maxCount: 1 },
-    { name: 'pictures3', maxCount: 1 },
-  ]);
-};
-
-module.exports = createMulterMiddleware;
+module.exports = upload

@@ -1,14 +1,13 @@
-// MosqueList.js
 import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import styles from './MosqueList.module.css'; // Import the CSS module styles
+import './mosqueList.css'
 
 const MosqueList = ({ name }) => {
-  const [id, setId] = useState('');
-  const [nam, setNam] = useState('');
-  const [division, setDivision] = useState('');
-  const [email, setEmail] = useState('');
+  const [id, setId] = useState('')
+  const [nam, setNam] = useState('')
+  const [division, setDivision] = useState('')
+  const [email, setEmail] = useState('')
 
   useEffect(() => {
     if (name !== null) {
@@ -19,12 +18,12 @@ const MosqueList = ({ name }) => {
     }
   }, [name]);
 
-  const handleMosqueDelete = async (id) => {
+  const handleMosqueDelete = async (nam) => {
     try {
       const response = await fetch(`http://localhost:5000/mosques/${id}`, {
         method: 'DELETE',
       });
-
+  
       if (response.ok) {
         toast.success("Mosque successfully deleted from the database.");
       } else {
@@ -35,15 +34,15 @@ const MosqueList = ({ name }) => {
     } 
   };
 
+  
+
   return (
-    <div key={id} className={styles.mosqueContainer}>
+    <div key={id}>
       <ToastContainer />
-      <p className={styles.mosqueName}>Mosque: {nam}</p>
-      <p className={styles.mosqueDetails}>Division: {division}</p>
-      <p className={styles.mosqueDetails}>Email: {email}</p>
-      <button className={styles.deleteButton} onClick={() => handleMosqueDelete(id)}>
-        Delete Mosque
-      </button>
+      <p>Mosque: {nam}</p>
+      <p>Division: {division}</p>
+      <p>Email: {email}</p>
+      <button onClick={() => handleMosqueDelete(id)}>Delete Mosque</button>
     </div> 
   );
 };

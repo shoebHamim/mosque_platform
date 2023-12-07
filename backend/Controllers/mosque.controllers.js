@@ -81,13 +81,16 @@ const mosqueUpdatebyEmail = async (req, res) => {
     if (req.body?.imamName !== undefined && req.body.imamName !== '') mosque.imamName = req.body.imamName;
     if (req.body?.contactNo !== null && req.body.contactNo !== '') mosque.contactNo = req.body.contactNo;
     if (req.body?.description !== undefined && req.body.description !== '') mosque.description = req.body.description;
-
+    if (req.body?.photo[0] !== undefined && req.body.photo[0] !== '') mosque.photo[0] = req.body.photo[0];
+    if (req.body?.photo[1] !== undefined && req.body.photo[1] !== '') mosque.photo[1] = req.body.photo[1];
+    if (req.body?.photo[2] !== undefined && req.body.photo[2] !== '') mosque.photo[2] = req.body.photo[2];
+    
     // Update the photo array with the uploaded file names
-    if (req.files) {
-      req.files.forEach((file, index) => {
-        mosque.photo[index] = file.filename;
-      });
-    }
+    // if (req.file) {
+    //   req.files.forEach((file, index) => {
+    //     mosque.photo[index] = req.file.path;
+    //   });
+    // }
 
     // Save the updated mosque document
     const result = await mosque.save();

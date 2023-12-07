@@ -3,24 +3,15 @@ import './update.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+
 const Update = ({ email }) => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [imam, setImam] = useState('');
   const [description, setDescription] = useState('');
-  const [pictureUrls, setPictureUrls] = useState(['', '', '']);
-
-  const generateToast = (type, message) => {
-    toast[type](message, {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-  };
+  const [pictures, setPictures] = useState([null, null, null]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,13 +27,26 @@ const Update = ({ email }) => {
           setNumber(data.contactNo);
           setImam(data.imamName);
           setDescription(data.description);
-          setPictureUrls(data.pictureUrls || ['', '', '']);
         } else {
-          generateToast('error', 'Error fetching data');
+          toast.error('Error fetching data', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
         }
       } catch (error) {
         console.error('Error:', error);
-        generateToast('error', 'Error fetching data');
+        toast.error('Error fetching data', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
     };
 
@@ -50,50 +54,79 @@ const Update = ({ email }) => {
     fetchData();
   }, [email]); // useEffect will run if the 'mail' prop changes
 
-  const handlePictureUrlChange = (e, index) => {
-    const newPictureUrls = [...pictureUrls];
-    newPictureUrls[index] = e.target.value;
-    setPictureUrls(newPictureUrls);
+  const handlePictureChange = (e, index) => {
+    const newPictures = [...pictures];
+    newPictures[index] = e.target.files[0];
+    setPictures(newPictures);
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const requestData = {
-      name,
-      address,
-      contactNo: number,
-      imamName: imam,
-      description,
-      photo: pictureUrls,
-    };
-
+  
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('address', address);
+    formData.append('contactNo', number);
+    formData.append('imamName', imam);
+    formData.append('description', description);
+    if (pictures[0]) {
+      formData.append('pictures1', pictures[0]);
+    }
+    if (pictures[1]) {
+      formData.append('pictures2', pictures[1]);
+    }
+    if (pictures[2]) {
+      formData.append('pictures3', pictures[2]);
+    }
+  
     try {
-      console.log('requestData:', requestData);
+      console.log('formData:', formData);
       const response = await fetch(`http://localhost:5000/mosques/${email}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData),
+        body: formData,
       });
-
+  
       if (response.ok) {
-        generateToast('success', 'Data updated successfully');
+        toast.success('Data updated successfully', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       } else {
-        generateToast('error', 'Error updating data');
+        toast.error('Error updating data', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      generateToast('error', 'Error updating data');
+      toast.error('Error updating data', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
+  
+  
+  
 
   return (
     <div className='update'>
       <ToastContainer />
       <h2>Update Mosque Data</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <label>Mosque Name</label>
         <input
           type="text"
@@ -123,19 +156,13 @@ const Update = ({ email }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
-  
-        {/* Change Picture URLs */}
-        {[1, 2, 3].map((index) => (
-          <div key={index}>
-            <label>{`Picture URL ${index}`}</label>
-            <input
-              type="text"
-              value={pictureUrls[index - 1]}
-              onChange={(e) => handlePictureUrlChange(e, index - 1)}
-            />
-          </div>
-        ))}
-  
+        <label>Change Picture 1</label>
+        <input type="file" name="pictures1" accept="image/*" onChange={(e) => handlePictureChange(e, 0)} />
+        <label>Change Picture 2</label>
+        <input type="file" name="pictures2" accept="image/*" onChange={(e) => handlePictureChange(e, 1)} />
+        <label>Change Picture 3</label>
+        <input type="file" name="pictures3" accept="image/*" onChange={(e) => handlePictureChange(e, 2)} />
+
         <div className='update_button'>
           <button type="submit">Update Profile</button>
         </div>

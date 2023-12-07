@@ -2,7 +2,6 @@ const express=require('express')
 const app=express()
 const cors = require('cors');
 const dbConnect = require('./dbConnect'); 
-const createMulterMiddleware = require('./Middlewares/multerMiddleware');
 
 // middleware
 app.use(express.json())
@@ -17,7 +16,6 @@ const featuredRoute=require('./Routes/featuredRoute')
 const announcementRoute=require('./Routes/announcementRoute')
 app.use('/users',userRoute)
 app.use('/mosques',mosqueRoute)
-app.use('/update',createMulterMiddleware(),mosqueRoute)
 app.use('/featured',featuredRoute)
 app.use('/announcement',announcementRoute)
 
