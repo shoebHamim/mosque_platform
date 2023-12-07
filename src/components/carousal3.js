@@ -13,7 +13,7 @@ function Carousel3() {
   useEffect(() => {
     const fetchMosqueDetails = async () => {
       try {
-    const response = await axios.get(`http://localhost:5000/registered/${id}`);
+const response = await axios.get(`http://localhost:5000/registered/${id}`);
         setMosque(response.data);
       } catch (error) {
         console.error('Error fetching mosque details:', error);

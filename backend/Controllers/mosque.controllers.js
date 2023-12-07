@@ -10,6 +10,19 @@ const getAllMosques=async(req,res)=>{
     res.status(500).send('Error fetching mosque');
   }
 }
+const getOneMosque = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const mosque = await Mosque.findById(id);
+    if (!mosque) {
+      return res.status(404).send('No mosque found with this ID');
+    }
+    res.json(mosque);
+  } catch (err) {
+    console.error('Error fetching mosque:', err);
+    res.status(500).send('Error fetching mosque');
+  }
+}
 const mosqueExistsbyEmail=async (req, res) => {
   const email = req.params.email;
   const mosque = await Mosque.findOne({ email: email });
@@ -27,4 +40,4 @@ const createMosque = async (req, res) => {
   }
 };
 
-module.exports={getAllMosques,mosqueExistsbyEmail,createMosque}
+module.exports={getAllMosques,mosqueExistsbyEmail,createMosque,getOneMosque}
