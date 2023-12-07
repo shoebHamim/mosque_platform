@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
-import Carousel3 from '../../components/carousal3';
-import Carousel2 from '../../components/carousal2';
-import { UserState } from 'realm-web';
 import Announcement from  '../announcement/announcement';
+
 function UserPage() {
-  const [user, setMosque] = useState(null);
+  const [user, setUser] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchMosqueDetails = async () => {
+    const fetchUserDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/users/${id}`);
-        setMosque(response.data);
+        setUser(response.data);
       } catch (error) {
         console.error('Error fetching user details:', error);
-        setMosque(null);
+        setUser(null);
       }
     };
 
-    fetchMosqueDetails();
+    fetchUserDetails();
   }, [id]);
 
   if (!user) {
@@ -35,17 +33,21 @@ function UserPage() {
          
 
           {/* Details info */}
-      <div style = {{ flex: 1, padding: '5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '10rem' }}>
-            <h1 style={{ fontWeight: 'bold' }}>Name: {user.name}</h1>
-            <h7 style={{ fontSize: 'smaller' }}>Contact No: {user.contactNo}</h7>
-            <h6 style={{ fontSize: 'smaller' }}>Division: {user.email}</h6>
+      <div style = {{ flex: 0, padding: '5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '5rem' }}>
+      <p style={{ fontWeight: 'bold' }}>User Details<br></br></p>
+            {/* <h1 style={{ fontWeight: 'bold' }}>Name: </h1> */}
+            <h7 style={{ fontWeight: 'bold' }}>{user.name}<br></br></h7>
+            {/* <h1 style={{ fontWeight: 'bold' }}>Contact No: </h1> */}
+            <h7 style={{ fontWeight: 'bold' }}>{user.contactNo}<br></br></h7>
+            {/* <h1 style={{ fontWeight: 'bold' }}>Division: </h1> */}
+            <h7 style={{ fontWeight: 'bold' }}>{user.email}<br></br></h7>
             
             
           </div>
         </div>
 
         {/* Right Column */}
-        <div style={{ flex: 0, padding: '0rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ flex: 0, padding: '0rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',marginLeft: '20rem'  }}>
         
          
             <Announcement/>

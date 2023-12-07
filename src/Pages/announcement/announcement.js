@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
-
 
 function Announcement() {
   const [announcements, setAnnouncements] = useState('');
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState(''); 
+
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
@@ -21,18 +18,7 @@ function Announcement() {
     fetchAnnouncements();
   }, []);
 
-  // const toggleDropdown = () => {
-  //   setDropdownVisible(!isDropdownVisible);
-  // };
 
-  // const handleFilterChange = (filter) => {
-  //   setSelectedFilter(filter);
-  //   setDropdownVisible(false); 
-  // };
-
-  // const filteredAnnouncements = announcements? selectedFilter? announcements.filter((announcement) => announcement.division === selectedFilter)
-  //     : announcements
-  //   : null;
 
   return (
     <div className="collapse bg-base-200">
@@ -40,12 +26,12 @@ function Announcement() {
       <div className="collapse-title text-xl font-medium">Announcement</div>
       <div className="collapse-content">
         <div className="overflow-x-auto">
-          <table className="table">
+          <table className="table w-full">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Time</th>
-                <th>Location</th>
+                <th className="w-1/3">Name</th>
+                <th className="w-1/3">Time</th>
+                <th className="w-1/3">Location</th>
               </tr>
             </thead>
             <tbody>

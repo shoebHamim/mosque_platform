@@ -5,7 +5,10 @@ const userControllers=require('../Controllers/user.controllers.js')
 
 router.get('/',userControllers.getAllUsers)
 router.post('/',userControllers.createUser)
+router.get('/:id',userControllers.getOneUser)
 router.get('/:email', userControllers.userExistsbyEmail)
+
+
 
 
 module.exports=router

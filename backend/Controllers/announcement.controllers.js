@@ -1,9 +1,9 @@
-const announcement = require("../Models/announcementModel");
+const Announcement = require("../Models/announcementModel");
 
 
 const getAllannouncements=async(req,res)=>{
   try {
-    const announcements = await announcements.find({});
+    const announcements = await Announcement.find({});
     res.json(announcements);
   } catch (err) {
     console.error('Error fetching announcement:', err);

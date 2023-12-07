@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
       {path:'/featured/:id',element:<SingleFeatured></SingleFeatured>},
       {path:'/registered',element:<Registered></Registered>},
       {path:'/registered/:id',element:<SingleRegistered></SingleRegistered>},
-      {path:'/userpage/:id',element:<UserPage></UserPage>},
+      {path:'/users/:id',element:<UserPage></UserPage>},
       {path:'/annoucement',element:<Announcement></Announcement>},
       {path:'passwordReset',element:<PasswordReset></PasswordReset>},
       {path:'/test',element:<Test></Test>}
