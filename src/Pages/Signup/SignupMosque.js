@@ -4,58 +4,61 @@ import { Link } from 'react-router-dom';
 import { app } from "../../firebase/firebase.init";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 const auth = getAuth(app);
-
 const imgHostKey=process.env.REACT_APP_imgbb_key;
 
-const saveMosqueToDB = async({name,division,address,imamName,contactNo,email,description,img}) => {
-  const mosque = {name,division,address,imamName,contactNo,email,description,img};
-  // generating img url uploading it to imgbb
-  const formData =new FormData()
-  formData.append('image',img[0])
-  const url=`https://api.imgbb.com/1/upload?key=${imgHostKey}`
-  fetch(url,{
-    method:'POST',
-    body:formData
-  })
-  .then(res=>res.json())
-  .then(imgData=>{
-    if(imgData.success){
-      // img uploaded and imgData.data.url is the url
-      mosque.img=imgData.data.url
-      fetch('http://localhost:5000/mosques', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(mosque),
-      })
-        .then(res => res.json())
-        .then(data => {
-          if(data._id){
-            toast.success('Mosque Registration was Successful!')
-          }
-          else{
-            toast.error('something went Wrong!')
-          }
-        })
-    }
-    })
-    
-};
 
-const OnSubmit = (data) => {
-  createUserWithEmailAndPassword(auth, data.email, data.password)
-    .then(res => {
-      saveMosqueToDB(data)
-    })
-    .catch(error => {
-      toast.error('Already Registered!')
-    })
-}
 
 
 const SignupMosque = () => {
+  const navigate = useNavigate();
+  const saveMosqueToDB = async({name,division,address,imamName,contactNo,email,description,img}) => {
+    const mosque = {name,division,address,imamName,contactNo,email,description,img};
+    // generating img url uploading it to imgbb
+    const formData =new FormData()
+    formData.append('image',img[0])
+    const url=`https://api.imgbb.com/1/upload?key=${imgHostKey}`
+    fetch(url,{
+      method:'POST',
+      body:formData
+    })
+    .then(res=>res.json())
+    .then(imgData=>{
+      if(imgData.success){
+        // img uploaded and imgData.data.url is the url
+        mosque.img=imgData.data.url
+        fetch('http://localhost:5000/mosques', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(mosque),
+        })
+          .then(res => res.json())
+          .then(data => {
+            if(data._id){
+              toast.success('Mosque Registration was Successful!')
+              navigate(`/registered`);
+            }
+            else{
+              toast.error('something went Wrong!')
+            }
+          })
+      }
+      })
+      
+  };
+  
+  const OnSubmit = (data) => {
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then(res => {
+        saveMosqueToDB(data)
+      })
+      .catch(error => {
+        toast.error('Already Registered!')
+      })
+  }
   const { register, handleSubmit, formState: { errors } } = useForm()
   return (
     <form onSubmit={handleSubmit(OnSubmit)} >

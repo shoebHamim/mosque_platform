@@ -1,0 +1,67 @@
+/* Admin.module.css */
+
+.app {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+.pageTitle {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 30px;
+  font-size: 36px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.appContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  border: none;
+}
+
+.mosqueSection,
+.announcementsSection {
+  width: 45%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 10px 20px 10px;
+}
+
+.sectionTitle {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.inputField,
+.submitButton,
+.textareaField {
+  width: calc(100% - 24px);
+  margin-bottom: 10px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.submitButton {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}
+
+.textareaField {
+  resize: vertical;
+}

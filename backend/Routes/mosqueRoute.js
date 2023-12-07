@@ -6,6 +6,8 @@ const mosqueControllers=require('../Controllers/mosque.controllers.js')
 router.post('/',mosqueControllers.createMosque)
 router.get('/',mosqueControllers.getAllMosques)
 router.get('/:email',mosqueControllers.mosqueExistsbyEmail)
-
+router.get('/name/:name',mosqueControllers.mosqueExistsbyName)
+router.delete('/:name',mosqueControllers.deleteMosqueByName)
+router.put('/:email',mosqueControllers.mosqueUpdatebyEmail);
 
 module.exports=router

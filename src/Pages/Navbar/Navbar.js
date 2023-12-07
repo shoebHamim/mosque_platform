@@ -47,6 +47,7 @@ const [loadingAutoComplete,setLoadingAutoComplete]=useState(false)
               <li><Link to={'/signup'}>Signup</Link></li>
             <li><Link to={'/featured'}>Featured</Link></li>
               <li><Link to='/login'>Login</Link></li>
+              <li><Link to='/registered'>Registered</Link></li>
             </ul>
           </div>
           <Link className="btn btn-ghost normal-case text-xl"><img className='h-3/4' src={icon} alt="" />
@@ -57,6 +58,8 @@ const [loadingAutoComplete,setLoadingAutoComplete]=useState(false)
             <li><Link to={'/featured'}>Featured</Link></li>
             <li><Link to={'/signup'}>Signup</Link></li>
             <li><Link to={'/login'}>Login</Link></li>
+            <li><Link to='/registered'>Registered</Link></li>
+
           </ul>
         </div>
         <div className="navbar-end">
