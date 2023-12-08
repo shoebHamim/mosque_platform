@@ -13,7 +13,7 @@ const getAllUsers=async(req,res)=>{
 const userExistsbyEmail=async (req, res) => {
   const email = req.params.email;
   const user = await User.findOne({ email: email });
-  res.send({found:user?true:false})
+  res.send(user)
 }
 
 const createUser = async (req, res) => {

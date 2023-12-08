@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../firebase/firebase.init";
 import toast, {  } from 'react-hot-toast';
@@ -9,7 +9,7 @@ import toast, {  } from 'react-hot-toast';
 const auth=getAuth(app)
 
 const Login = () => {
-
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
     signInWithEmailAndPassword(auth,data.email,data.password)
@@ -21,8 +21,15 @@ const Login = () => {
         fetch(`http://localhost:5000/users/${user.email}`)
           .then(res=>res.json())
           .then(data=>{
-            if(data.found){
-              toast.success('User Logged in')
+            if(data._id){
+              if(data.role==="admin"){
+                toast.success('Admin Logged in')
+                navigate(`/admin/${data._id}`)
+              }
+              else{
+                toast.success('User Logged in')
+                navigate('/registered')
+              }
             }
             else{
               toast.error('User not Found')
@@ -39,8 +46,12 @@ const Login = () => {
         fetch(`http://localhost:5000/mosques/${user.email}`)
         .then(res=>res.json())
         .then(data=>{
-          if(data.found){
-            toast.success('Mosque Logged in')
+          if(data){
+            if(data._id){
+              toast.success('Mosque Logged in')
+            navigate(`/signedinmosque/${data.email}`)
+            }
+            
           }
           else{
             toast.error('Mosque not Found')
@@ -52,8 +63,6 @@ const Login = () => {
         });
 
       }
-
-
 
     })
     .catch((error) => {
