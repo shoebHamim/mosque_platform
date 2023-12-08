@@ -35,135 +35,146 @@ const fetchRegisteredMosques = async () => {
     : null;
 
   return (
-    <div>
-      <div className="popup-container relative">
-      <label
-        tabIndex={0}
-        className=" btn m-1 normal-case text-black bg-white hover:bg-gray-400 rounded-full px-4 py-2 transition-all duration-300"
-        onClick={toggleDropdown}
-      >
-        {selectedFilter ? `Filter: ${selectedFilter}` : 'All Divisions'}
-      </label>
-     
+    <>
+     {mosques ?
+         <div>
+         <div className="popup-container relative">
+         <label
+           tabIndex={0}
+           className=" btn m-1 normal-case text-black bg-white hover:bg-gray-400 rounded-full px-4 py-2 transition-all duration-300"
+           onClick={toggleDropdown}
+         >
+           {selectedFilter ? `Filter: ${selectedFilter}` : 'All Divisions'}
+         </label>
+        
+   
+           {isDropdownVisible && (
+             <ul tabIndex={0} className="left-0 absolute popup-content dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ">
+               <li>
+                 <p
+                   className="text-black cursor-pointer hover:text-gray-700"
+                   onClick={() => handleFilterChange('Dhaka')}
+                 >
+                   Dhaka
+                 </p>
+               </li>
+               <li>
+                 <p
+                   className="text-black cursor-pointer hover:text-gray-700"
+                   onClick={() => handleFilterChange('Chittagong')}
+                 >
+                   Chittagong
+                 </p>
+               </li>
+               <li>
+                 <p
+                   className="text-black cursor-pointer hover:text-gray-700"
+                   onClick={() => handleFilterChange('Rangpur')}
+                 >
+                   Rangpur
+                 </p>
+               </li>
+               <li>
+                 <p
+                   className="text-black cursor-pointer hover:text-gray-700"
+                   onClick={() => handleFilterChange('Rajshahi')}
+                 >
+                   Rajshahi
+                 </p>
+               </li>
+               <li>
+                 <p
+                   className="text-black cursor-pointer hover:text-gray-700"
+                   onClick={() => handleFilterChange('Barisal')}
+                 >
+                   Barisal
+                 </p>
+               </li>
+               <li>
+                 <p
+                   className="text-black cursor-pointer hover:text-gray-700"
+                   onClick={() => handleFilterChange('Khulna')}
+                 >
+                   Khulna
+                 </p>
+               </li>
+               <li>
+                 <p
+                   className="text-black cursor-pointer hover:text-gray-700"
+                   onClick={() => handleFilterChange('Sylhet')}
+                 >
+                   Sylhet
+                 </p>
+               </li>
+               <li>
+                 <p
+                   className="text-black cursor-pointer hover:text-gray-700"
+                   onClick={() => handleFilterChange('Mymensingh')}
+                 >
+                   Mymensingh
+                 </p>
+               </li>
+               <li>
+                 <p
+                   className="text-black cursor-pointer hover:text-gray-700"
+                   onClick={() => handleFilterChange('')}
+                 >
+                   All Divisions
+                 </p>
+               </li>
+               
+             </ul>
+           )}
+         </div>
+         <div className="overflow-x-auto">
+           <table className="table">
+             <thead>
+               <tr>
+                 <th>Picture</th>
+                 <th>Name</th>
+                 <th>Division</th>
+                 <th>Location</th>
+                 <th></th>
+               </tr>
+             </thead>
+             <tbody>
+               {filteredMosques &&
+                 filteredMosques.map((mosque) => {
+                   return (
+                     <tr key={mosque._id}>
+                       <td>
+                         <img
+                           src={mosque.img}
+                           alt="Avatar Tailwind CSS Component"
+                           style={{ width: '50px', height: '50px' }}
+                         />
+                       </td>
+                       <td>{mosque.name}</td>
+                       <td>{mosque.division}</td>
+                       <td>{mosque.address}</td>
+                       <td>
+                         <Link to={`/registered/${mosque._id}`}>
+                           <button className="btn-sm text-white bg-blue-500 rounded-2xl  ">
+                             Show Details
+                           </button>
+                         </Link>
+                       </td>
+                     </tr>
+                   );
+                 })}
+             </tbody>
+           </table>
+         </div>
+       </div>
 
-        {isDropdownVisible && (
-          <ul tabIndex={0} className="left-0 absolute popup-content dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ">
-            <li>
-              <p
-                className="text-black cursor-pointer hover:text-gray-700"
-                onClick={() => handleFilterChange('Dhaka')}
-              >
-                Dhaka
-              </p>
-            </li>
-            <li>
-              <p
-                className="text-black cursor-pointer hover:text-gray-700"
-                onClick={() => handleFilterChange('Chittagong')}
-              >
-                Chittagong
-              </p>
-            </li>
-            <li>
-              <p
-                className="text-black cursor-pointer hover:text-gray-700"
-                onClick={() => handleFilterChange('Rangpur')}
-              >
-                Rangpur
-              </p>
-            </li>
-            <li>
-              <p
-                className="text-black cursor-pointer hover:text-gray-700"
-                onClick={() => handleFilterChange('Rajshahi')}
-              >
-                Rajshahi
-              </p>
-            </li>
-            <li>
-              <p
-                className="text-black cursor-pointer hover:text-gray-700"
-                onClick={() => handleFilterChange('Barisal')}
-              >
-                Barisal
-              </p>
-            </li>
-            <li>
-              <p
-                className="text-black cursor-pointer hover:text-gray-700"
-                onClick={() => handleFilterChange('Khulna')}
-              >
-                Khulna
-              </p>
-            </li>
-            <li>
-              <p
-                className="text-black cursor-pointer hover:text-gray-700"
-                onClick={() => handleFilterChange('Sylhet')}
-              >
-                Sylhet
-              </p>
-            </li>
-            <li>
-              <p
-                className="text-black cursor-pointer hover:text-gray-700"
-                onClick={() => handleFilterChange('Mymensingh')}
-              >
-                Mymensingh
-              </p>
-            </li>
-            <li>
-              <p
-                className="text-black cursor-pointer hover:text-gray-700"
-                onClick={() => handleFilterChange('')}
-              >
-                All Divisions
-              </p>
-            </li>
-            
-          </ul>
-        )}
-      </div>
-      <div className="overflow-x-auto">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Picture</th>
-              <th>Name</th>
-              <th>Division</th>
-              <th>Location</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredMosques &&
-              filteredMosques.map((mosque) => {
-                return (
-                  <tr key={mosque._id}>
-                    <td>
-                      <img
-                        src={mosque.img}
-                        alt="Avatar Tailwind CSS Component"
-                        style={{ width: '50px', height: '50px' }}
-                      />
-                    </td>
-                    <td>{mosque.name}</td>
-                    <td>{mosque.division}</td>
-                    <td>{mosque.address}</td>
-                    <td>
-                      <Link to={`/registered/${mosque._id}`}>
-                        <button className="btn-sm text-white bg-blue-500 rounded-2xl  ">
-                          Show Details
-                        </button>
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-      </div>
-    </div>
+     :  <div>
+     <div className="flex justify-center items-center h-screen">
+       <span className="loading loading-spinner loading-lg"></span>
+     </div>
+
+   </div>}
+    </>
+
   );
 }
 

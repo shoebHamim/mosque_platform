@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import icon from '../../resources/icons/mosque.png'
+import { AuthContext } from '../../Context/AuthProvider';
+
 
 const Realm = require("realm-web");
 const app = new Realm.App({ id: process.env.REACT_APP_mongodb_app_id });
 
 const Navbar = () => {
+  const { user,logOut,loading,setLoading } = useContext(AuthContext)
+
+
+
 const [loadingAutoComplete,setLoadingAutoComplete]=useState(false)
 
   // for search autocomplete using mongodb custom function
@@ -56,9 +62,23 @@ const [loadingAutoComplete,setLoadingAutoComplete]=useState(false)
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li><Link to={'/featured'}>Featured</Link></li>
-            <li><Link to={'/signup'}>Signup</Link></li>
-            <li><Link to={'/login'}>Login</Link></li>
+          {
+            (!loading && user?.uid)&&
+
+
             <li><Link to='/registered'>Registered</Link></li>
+          }
+
+           {user?.uid?<>
+
+        <li  onClick={logOut}><Link>Logout📤</Link></li>
+
+           </>:
+           <>
+           <li><Link to={'/signup'}>Signup</Link></li>
+            <li><Link to={'/login'}>Login</Link></li>
+           </>
+           } 
 
           </ul>
         </div>

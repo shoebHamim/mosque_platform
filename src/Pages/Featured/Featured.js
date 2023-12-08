@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import FeaturedCard from './FeaturedCard';
 
 
 export default function Featured() {
@@ -34,12 +34,8 @@ export default function Featured() {
 
   return (
     <>
-
-
-
-
       {mosques ?
-        <div>
+        <div className='my-8'>
           <div className="popup-container relative">
             <label
               tabIndex={0}
@@ -128,44 +124,14 @@ export default function Featured() {
               </ul>
             )}
           </div>
-          <div className="overflow-x-auto">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Picture</th>
-                  <th>Name</th>
-                  <th>Division</th>
-                  <th>Location</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredMosques &&
-                  filteredMosques.map((mosque) => {
-                    return (
-                      <tr key={mosque._id}>
-                        <td>
-                          <img
-                            src={mosque.photoURLs[0]}
-                            alt="Avatar Tailwind CSS Component"
-                            style={{ width: '50px', height: '50px' }}
-                          />
-                        </td>
-                        <td>{mosque.name}</td>
-                        <td>{mosque.division}</td>
-                        <td>{mosque.location}</td>
-                        <td>
-                          <Link to={`/featured/${mosque._id}`}>
-                            <button className="btn-sm text-white bg-blue-500 rounded-2xl  ">
-                              Show Details
-                            </button>
-                          </Link>
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
+          <div className='grid grid-cols-3 mx-28'>
+            {filteredMosques &&
+              filteredMosques.map((mosque) =>
+                <FeaturedCard key={mosque._id} data={mosque} ></FeaturedCard>
+
+              )}
+
+
           </div>
         </div>
         : <div>

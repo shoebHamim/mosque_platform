@@ -17,7 +17,6 @@ const announcementRoute=require('./Routes/announcementRoute')
 const registeredRoute=require('./Routes/registeredRoute')
 
 
-
 app.use('/users',userRoute)
 app.use('/mosques',mosqueRoute)
 app.use('/featured',featuredRoute)

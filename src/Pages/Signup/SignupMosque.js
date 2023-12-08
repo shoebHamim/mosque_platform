@@ -77,14 +77,14 @@ const SignupMosque = () => {
     <label className="label"><span className="label-text">
         Select Division</span></label>
     <select className='input input-bordered' {...register("division")}>
-      <option value=" Dhaka"> Dhaka</option>
-      <option value=" Barisal"> Barisal</option>
-      <option value=" Chittagong"> Chittagong</option>
-      <option value=" Khulna"> Khulna</option>
-      <option value=" Mymensingh"> Mymensingh</option>
-      <option value=" Rajshahi"> Rajshahi</option>
-      <option value=" Rangpur"> Rangpur</option>
-      <option value=" Sylhet"> Sylhet</option>
+      <option value="Dhaka"> Dhaka</option>
+      <option value="Barisal"> Barisal</option>
+      <option value="Chittagong"> Chittagong</option>
+      <option value="Khulna"> Khulna</option>
+      <option value="Mymensingh"> Mymensingh</option>
+      <option value="Rajshahi"> Rajshahi</option>
+      <option value="Rangpur"> Rangpur</option>
+      <option value="Sylhet"> Sylhet</option>
     </select>
     </div>
 
