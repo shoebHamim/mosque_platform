@@ -35,8 +35,8 @@ export default function Featured() {
   return (
     <>
       {mosques ?
-        <div className='my-8'>
-          <div className="popup-container relative">
+        <div className='m-4'>
+          <div className="popup-container relative ">
             <label
               tabIndex={0}
               className=" btn m-1 normal-case text-black bg-white hover:bg-gray-400 rounded-full px-4 py-2 transition-all duration-300"
@@ -124,11 +124,12 @@ export default function Featured() {
               </ul>
             )}
           </div>
-          <div className='grid grid-cols-3 mx-28'>
+          <div className='grid gap-6 grid-cols-3 mx-28 '>
             {filteredMosques &&
               filteredMosques.map((mosque) =>
-                <FeaturedCard key={mosque._id} data={mosque} ></FeaturedCard>
-
+              <div className='flex' key={mosque._id}>
+                <FeaturedCard data={mosque} ></FeaturedCard>
+              </div>
               )}
 
 

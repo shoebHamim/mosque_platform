@@ -1,12 +1,11 @@
 import React from 'react';
+import Featured from '../Featured/Featured';
 
 const Home = () => {
   return (
     <div>
-      <h1>This is home</h1>
-      <p>
+      <Featured></Featured>
 
-      </p>
     </div>
   );
 };

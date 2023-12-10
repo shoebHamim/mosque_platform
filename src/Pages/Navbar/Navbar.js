@@ -1,18 +1,20 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import icon from '../../resources/icons/mosque.png'
 import { AuthContext } from '../../Context/AuthProvider';
-
+import { useNavigate } from 'react-router-dom';
 
 const Realm = require("realm-web");
 const app = new Realm.App({ id: process.env.REACT_APP_mongodb_app_id });
 
 const Navbar = () => {
-  const { user,logOut,loading,setLoading } = useContext(AuthContext)
+  const navigate = useNavigate();
+  const location=useLocation()
+  const { user, logOut, loading } = useContext(AuthContext)
 
 
 
-const [loadingAutoComplete,setLoadingAutoComplete]=useState(false)
+  const [loadingAutoComplete, setLoadingAutoComplete] = useState(false)
 
   // for search autocomplete using mongodb custom function
   const getAutoComplete = async (query) => {
@@ -22,13 +24,18 @@ const [loadingAutoComplete,setLoadingAutoComplete]=useState(false)
       return searchAutoComplete
     }
     catch (error) {
-      
       console.log(error);
     }
   }
 
   const [autoComplete, setAutoComplete] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
   const handleSearchChange = async (e) => {
+    setSearchTerm(e.target.value)
+    if(location.pathname.match(/\/search\//)){
+
+      return
+    }
     setLoadingAutoComplete(true)
     const query = e.target.value
     if (query) {
@@ -41,6 +48,14 @@ const [loadingAutoComplete,setLoadingAutoComplete]=useState(false)
       setLoadingAutoComplete(false)
     }
   }
+
+  const handleSearchSubmit = e => {
+    e.preventDefault()
+    if (searchTerm) {
+      setAutoComplete([])
+      navigate(`/search/${searchTerm}`)
+    }
+  }
   return (
     <div className=''>
       <div className="navbar bg-base-200">
@@ -51,55 +66,61 @@ const [loadingAutoComplete,setLoadingAutoComplete]=useState(false)
             </label>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
               <li><Link to={'/signup'}>Signup</Link></li>
-            <li><Link to={'/featured'}>Featured</Link></li>
+              <li><Link to={'/featured'}>Featured</Link></li>
               <li><Link to='/login'>Login</Link></li>
               <li><Link to='/registered'>Registered</Link></li>
             </ul>
           </div>
           <Link className="btn btn-ghost normal-case text-xl"><img className='h-3/4' src={icon} alt="" />
-          Mosque Platform </Link>
+            Mosque Platform </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li><Link to={'/featured'}>Featured</Link></li>
-          {
-            (!loading && user?.uid)&&
+            {
+              (!loading && user?.uid) &&
 
 
-            <li><Link to='/registered'>Registered</Link></li>
-          }
+              <li><Link to='/registered'>Registered</Link></li>
+            }
 
-           {user?.uid?<>
+            {user?.uid ? <>
 
-        <li  onClick={logOut}><Link>Logout📤</Link></li>
+              <li onClick={logOut}><Link>Logout📤</Link></li>
 
-           </>:
-           <>
-           <li><Link to={'/signup'}>Signup</Link></li>
-            <li><Link to={'/login'}>Login</Link></li>
-           </>
-           } 
+            </> :
+              <>
+                <li><Link to={'/signup'}>Signup</Link></li>
+                <li><Link to={'/login'}>Login</Link></li>
+              </>
+            }
 
           </ul>
         </div>
         <div className="navbar-end">
-        <div>
-          <div className='relative'>
-          <input onChange={handleSearchChange}
-              type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-              {loadingAutoComplete&&
-            <span className="loading loading-dots loading-sm absolute right-3 top-3"></span>
-            }
-          </div>
+          <div >
+            <div >
+              <form onSubmit={(e) => handleSearchSubmit(e)} >
+                <input onChange={handleSearchChange}
+                  type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+                  
+                <button type='submit' className='btn ml-2 bg-[#dbd3d8]'>
+                Go
+                </button>
+              </form>
+
+              {loadingAutoComplete &&
+                <span className="loading loading-dots loading-sm absolute right-20 top-6"></span>
+              }
+            </div>
             <ul className={` absolute z-10 bg-base-200 ml-2 rounded-xl ${autoComplete.length && `p-5`} `}>
-  
+
               {autoComplete.map(item =>
                 <li key={item._id} className='px-4 py-2 hover:bg-gray-300 cursor-pointer rounded-lg'
                 >{item.name}</li>
               )}
             </ul>
           </div>
-          <Link className="btn  ml-2 bg-[#dbd3d8]">Go</Link>
         </div>
       </div>
     </div>

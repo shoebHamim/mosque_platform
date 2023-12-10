@@ -9,6 +9,7 @@ import Registered from "../Pages/Registered/Registered";
 import SingleRegistered from "../Pages/Registered/SingleRegistered";
 
 import SignedInMosque from "../Pages/SignedInMosque/SignedInMosque";
+import Search from "../Pages/Search/Search";
 
 
 
@@ -29,7 +30,8 @@ export const router = createBrowserRouter([
       {path:'/admin/:id',element:<Admin/>},
       {path:'/registered',element:<Registered></Registered>},
       {path:'/registered/:id',element:<SingleRegistered></SingleRegistered>},
-      {path:'/signedinmosque/:email',element:<SignedInMosque></SignedInMosque>}
+      {path:'/signedinmosque/:email',element:<SignedInMosque></SignedInMosque>},
+      {path:'/search/:searchTerm',element:<Search></Search>}
       
  
 
