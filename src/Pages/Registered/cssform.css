@@ -1,24 +1,24 @@
 
 .form-control {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  
-  .form-control > * {
-    width: 100%;
-  }
-  
-  .form-control > textarea {
-    height: 4rem;
-    width: 40rem;
-  }
-  
-  .form-control > button {
-    width: 100%;
-    height: 4rem;
-    border-radius: 0.5rem;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-control > * {
+  width: 100%;
+}
+
+.form-control > textarea {
+  height: 4rem;
+  width: 40rem;
+}
+
+.form-control > button {
+  width: 100%;
+  height: 4rem;
+  border-radius: 0.5rem;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
