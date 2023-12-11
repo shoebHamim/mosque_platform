@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './update.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const Update = ({ email }) => {
+const Update = ({ }) => {
+  const navigate = useNavigate();
+
+  const email=useParams().email
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
@@ -75,6 +79,8 @@ const Update = ({ email }) => {
 
       if (response.ok) {
         toast.success('Data updated successfully')
+        navigate(`/registered/${email}`)
+        
         // generateToast('success', '');
       } else {
         generateToast('error', 'Error updating data');

@@ -1,10 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import FeaturedCard from './FeaturedCard';
+import { AuthContext } from '../../Context/AuthProvider';
 
 
 export default function Featured() {
+  const { role } = useContext(AuthContext)
   const [mosques, setMosques] = useState('');
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('');

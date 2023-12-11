@@ -1,5 +1,14 @@
 const Mosque = require("../Models/mosqueModel");
 
+const idToEmail=async(req,res)=>{
+  try {
+    const mosques = await Mosque.findById(req.params.id);
+    res.json(mosques);
+  } catch (err) {
+    console.error('Error fetching mosque:', err);
+    res.status(500).send('Error fetching mosque');
+  }
+}
 
 const getAllMosques=async(req,res)=>{
   try {
@@ -92,4 +101,4 @@ const mosqueExistsbyName = async (req, res) => {
 };
 
 
-module.exports={getAllMosques,mosqueExistsbyEmail,createMosque,mosqueUpdatebyEmail,deleteMosqueByName,mosqueExistsbyName}
+module.exports={idToEmail,getAllMosques,mosqueExistsbyEmail,createMosque,mosqueUpdatebyEmail,deleteMosqueByName,mosqueExistsbyName}

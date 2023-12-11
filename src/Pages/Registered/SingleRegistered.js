@@ -1,19 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import News from '../News/News';
+import { AuthContext } from '../../Context/AuthProvider';
 
-import { UserState } from 'realm-web';
-import Announcement from  '../announcement/announcement';
+
 function SingleRegistered() {
   const [mosque, setMosque] = useState(null);
-  const { id } = useParams();
+  const  mosque_email  = useParams().email;
+  const {user,role}=useContext(AuthContext)
+  const [hasEditAccess,setHasEditAccess]=useState(false)
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchMosqueDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/registered/${id}`);
+        const response = await axios.get(`http://localhost:5000/registered/${mosque_email}`)
         setMosque(response.data);
-        console.log(response);
+        if(response.data?.email===user?.email || role=='admin'){
+          setHasEditAccess(true)
+        }
 
       } catch (error) {
         console.error('Error fetching mosque details:', error);
@@ -22,58 +29,35 @@ function SingleRegistered() {
     };
 
     fetchMosqueDetails();
-  }, [id]);
+  }, [mosque_email]);
+
+
+
 
   if (!mosque) {
     return <div>Loading...</div>;
   }
 
+
   return (
-    <div className="bg-white text-black">
-      <div style={{ display: 'flex' }}>
-        {/* Left Column */}
-<div style={{ flex: 0, padding: '0rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '0rem' }}>
-          {/* Carousel at the top */}
-          
-
-          {/* Details info */}
-      <div style = {{ flex: 0, padding: '0rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: '0rem' }}>
-            <h1 style={{ fontWeight: 'bold' }}>{mosque.name}</h1>
-            <h7 style={{ fontSize: 'smaller' }}>{mosque.location}</h7>
-            <h6 style={{ fontSize: 'smaller' }}>Division: {mosque.division}</h6>
-            <p>{mosque.description}</p>
-            
-          </div>
-        </div>
-
-        {/* Right Column */}
-        <div style={{ flex: 0, padding: '0rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        
-         
-            <Announcement/>
-          
-          
-          {/* <div className="form-control">
-            <textarea className="textarea textarea-bordered w-max h-15" placeholder="New announcement"></textarea>
-            <Link to={`/announcement/${mosque._id}`}>
-            <button className="btn-sm text-white bg-blue-500 rounded-2xl">
-              Add new annoucment
-            </button>
-          </Link>
-          </div> */}
-        
-          
+    <div className='mb-12'>
+      <div className='flex'>
+        <img src={mosque.img} className='w-1/2' alt="" />
+        <div className='flex flex-col items-center justify-center w-1/2'>
+        <h1 className='text-xl font-bold'>{mosque.name}</h1>
+        <h6 className='text-l'>{mosque.location}</h6>
+        <h6>Division: {mosque.division}</h6>
+        <p>{mosque.description}</p>
+        {hasEditAccess&&
+        <button className='btn btn-primary btn-sm mt-4' 
+        onClick={()=>navigate(`/registered/update/${mosque_email}`)}>Update</button>
+        }
         </div>
       </div>
+      <News  mosque_email={mosque_email} hasEditAccess={hasEditAccess} ></News>
 
-      {/* Go to Edit Page Button */}
-      <div className="text-center">
-        <Link to={`/Edit/${mosque._id}`}>
-          <button className="btn-sm text-white bg-blue-500 rounded-2xl">
-            Go to Edit Page
-          </button>
-        </Link>
-      </div>
+
+      
     </div>
   );
 }

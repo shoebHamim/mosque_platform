@@ -8,8 +8,9 @@ import Admin from "../Pages/Admin/Admin";
 import Registered from "../Pages/Registered/Registered";
 import SingleRegistered from "../Pages/Registered/SingleRegistered";
 
-import SignedInMosque from "../Pages/SignedInMosque/SignedInMosque";
 import Search from "../Pages/Search/Search";
+import News from "../Pages/News/News";
+import Update from "../Pages/Update/UpdateMosque";
 
 
 
@@ -28,10 +29,14 @@ export const router = createBrowserRouter([
       {path:'/featured/:id',element:<SingleFeatured></SingleFeatured>},
       {path:'passwordReset',element:<PasswordReset></PasswordReset>},
       {path:'/admin/:id',element:<Admin/>},
+      {path:'/search/:searchTerm',element:<Search></Search>},
+      {path:'/news/:email',element:<News></News>},
+
+      // registered
       {path:'/registered',element:<Registered></Registered>},
-      {path:'/registered/:id',element:<SingleRegistered></SingleRegistered>},
-      {path:'/signedinmosque/:email',element:<SignedInMosque></SignedInMosque>},
-      {path:'/search/:searchTerm',element:<Search></Search>}
+      {path:'/registered/:email',element:<SingleRegistered></SingleRegistered>},
+      {path:'/registered/update/:email',element:<Update></Update>},
+
       
  
 

@@ -9,7 +9,7 @@ const app = new Realm.App({ id: process.env.REACT_APP_mongodb_app_id });
 
 export default function Search() {
   const {searchTerm}=useParams()
-  const [searchedMosque,setSearchedMosque]=useState('')
+  const [searchedMosque,setSearchedMosque]=useState([])
   const [loading,setLoading]=useState(false)
 
   useEffect(() => {
@@ -37,16 +37,20 @@ export default function Search() {
          <div>
          <div className="overflow-x-auto">
            <table className="table">
-             <thead>
-               <tr>
-                 <th>Picture</th>
-                 <th>Name</th>
-                 <th>Division</th>
-                 <th>Location</th>
-                 <th></th>
-               </tr>
-             </thead>
-             <tbody>
+            {searchedMosque.length!=0?
+            <thead>
+            <tr>
+              <th>Picture</th>
+              <th>Name</th>
+              <th>Division</th>
+              <th>Location</th>
+              <th></th>
+            </tr>
+          </thead>:<></>
+            }
+          <tbody>
+             
+             
                {searchedMosque &&
                  searchedMosque.map((mosque) => {
                    return (
@@ -62,8 +66,8 @@ export default function Search() {
                        <td>{mosque.division}</td>
                        <td>{mosque.address}</td>
                        <td>
-                         <Link to={`/registered/${mosque._id}`}>
-                           <button className="btn-sm text-white bg-blue-500 rounded-2xl  ">
+                         <Link to={`/registered/${mosque.email}`}>
+                           <button className="btn-sm  text-white bg-blue-500 rounded-2xl  ">
                              Show Details
                            </button>
                          </Link>
@@ -73,6 +77,16 @@ export default function Search() {
                  })}
              </tbody>
            </table>
+           {
+                searchedMosque.length==0?
+                <div className='text-xl font-bold flex justify-center h-screen items-center'>
+                  <p>
+
+                  No Mosque Found!
+                  </p>
+                </div>:<></>
+
+              }
          </div>
        </div>
 

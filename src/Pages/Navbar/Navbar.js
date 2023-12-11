@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import icon from '../../resources/icons/mosque.png'
 import { AuthContext } from '../../Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Realm = require("realm-web");
 const app = new Realm.App({ id: process.env.REACT_APP_mongodb_app_id });
@@ -33,6 +34,7 @@ const Navbar = () => {
   const handleSearchChange = async (e) => {
     setSearchTerm(e.target.value)
     if(location.pathname.match(/\/search\//)){
+      setAutoComplete([])
 
       return
     }
@@ -55,6 +57,17 @@ const Navbar = () => {
       setAutoComplete([])
       navigate(`/search/${searchTerm}`)
     }
+  }
+  const handleSelect=async(id)=>{
+    try {
+      const response = await axios.get(`http://localhost:5000/mosques/idtomail/${id}`);
+      setAutoComplete([])
+      navigate(`/registered/${response.data.email}`)
+    } catch (error) {
+      console.error(error);
+    console.log(id);
+    }
+
   }
   return (
     <div className=''>
@@ -86,7 +99,8 @@ const Navbar = () => {
 
             {user?.uid ? <>
 
-              <li onClick={logOut}><Link>Logout📤</Link></li>
+
+              <li onClick={logOut}><Link>{user.email.split('@').shift()} 📤</Link></li>
 
             </> :
               <>
@@ -116,8 +130,13 @@ const Navbar = () => {
             <ul className={` absolute z-10 bg-base-200 ml-2 rounded-xl ${autoComplete.length && `p-5`} `}>
 
               {autoComplete.map(item =>
-                <li key={item._id} className='px-4 py-2 hover:bg-gray-300 cursor-pointer rounded-lg'
-                >{item.name}</li>
+              
+              <li onClick={()=>handleSelect(item._id)} key={item._id} className='px-4 py-2 hover:bg-gray-300 cursor-pointer rounded-lg'
+              >
+                  
+                  {item.name}
+                 
+                  </li>
               )}
             </ul>
           </div>

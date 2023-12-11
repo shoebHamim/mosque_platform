@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../firebase/firebase.init";
 import toast, {  } from 'react-hot-toast';
+import { AuthContext } from '../../Context/AuthProvider';
 
 
 const auth=getAuth(app)
 
 const Login = () => {
+  const {role,setRole} = useContext(AuthContext)
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => {
@@ -24,11 +26,13 @@ const Login = () => {
             if(data._id){
               if(data.role==="admin"){
                 toast.success('Admin Logged in')
+                setRole('admin')
                 navigate(`/admin/${data._id}`)
               }
               else{
                 toast.success('User Logged in')
                 navigate('/registered')
+                setRole('user')
               }
             }
             else{
@@ -49,7 +53,8 @@ const Login = () => {
           if(data){
             if(data._id){
               toast.success('Mosque Logged in')
-            navigate(`/signedinmosque/${data.email}`)
+              setRole('mosque')
+            navigate(`/registered/${data.email}`)
             }
             
           }

@@ -15,6 +15,7 @@ const userRoute=require('./Routes/userRoute')
 const featuredRoute=require('./Routes/featuredRoute')
 const announcementRoute=require('./Routes/announcementRoute')
 const registeredRoute=require('./Routes/registeredRoute')
+const newsRoute=require('./Routes/newsRoute')
 
 
 app.use('/users',userRoute)
@@ -22,7 +23,7 @@ app.use('/mosques',mosqueRoute)
 app.use('/featured',featuredRoute)
 app.use('/announcement',announcementRoute)
 app.use('/registered',registeredRoute)
-
+app.use('/news',newsRoute );
 
 
 // server running code and a root route for checking

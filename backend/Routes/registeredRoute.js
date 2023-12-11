@@ -4,7 +4,7 @@ const registeredController=require('../Controllers/registered.controllers')
 
 
 router.get('/',registeredController.getAllRegistered)
-router.get('/:id',registeredController.getOneRegistered)
+router.get('/:email',registeredController.getOneRegistered)
 
 
 

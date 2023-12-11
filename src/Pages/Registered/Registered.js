@@ -12,8 +12,6 @@ export default function Registered() {
 const fetchRegisteredMosques = async () => {
       const response = await fetch('http://localhost:5000/registered');
       const json = await response.json();
-      console.log(json);
-
         setMosques(json);
     
     };
@@ -153,7 +151,7 @@ const fetchRegisteredMosques = async () => {
                        <td>{mosque.division}</td>
                        <td>{mosque.address}</td>
                        <td>
-                         <Link to={`/registered/${mosque._id}`}>
+                         <Link to={`/registered/${mosque.email}`}>
                            <button className="btn-sm text-white bg-blue-500 rounded-2xl  ">
                              Show Details
                            </button>

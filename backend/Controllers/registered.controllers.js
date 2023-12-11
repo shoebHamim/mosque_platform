@@ -12,7 +12,7 @@ const getAllRegistered=async(req,res)=>{
 }
 const getOneRegistered = async (req, res) => {
   try {
-    const mosque = await Mosque.findById(req.params.id);
+    const mosque = await Mosque.findOne({ email: req.params.email });
     if (!mosque) {
       return res.status(404).send('No mosque found with this ID');
     }
