@@ -1,42 +1,46 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { app } from "../../firebase/firebase.init";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import toast from 'react-hot-toast';
 
 
 const auth = getAuth(app);
-const saveUserToDB = async({name,division,address,imamName,contactNo,email}) => {
-  const mosque = {name,division,address,imamName,contactNo,email}
-  fetch('http://localhost:5000/users', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify(mosque),
-  })
-    .then(res => res.json())
-    .then(data => {
-      if(data._id){
-        toast.success('User Registration was Successful!')
-      }
-      else{
-        toast.error('something went Wrong!')
-      }
-    })
-}
-const OnSubmit = (data) => {
 
-  createUserWithEmailAndPassword(auth, data.email, data.password)
-    .then(res => {
-      saveUserToDB(data)
-    })
-    .catch(error => {
-      toast.error('Already Registered!')
-    })
-}
 const SignupUser = () => {
+  const navigate=useNavigate()
+  const OnSubmit = (data) => {
+
+    const saveUserToDB = async({name,division,address,imamName,contactNo,email}) => {
+      const mosque = {name,division,address,imamName,contactNo,email}
+      fetch('http://localhost:5000/users', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(mosque),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data._id){
+            toast.success('User Registration was Successful!')
+            navigate('/registered')
+          }
+          else{
+            toast.error('something went Wrong!')
+          }
+        })
+    }
+  
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then(res => {
+        saveUserToDB(data)
+      })
+      .catch(error => {
+        toast.error('Already Registered!')
+      })
+  }
   const { register, handleSubmit, formState: { errors } } = useForm()
   return (
     <form onSubmit={handleSubmit(OnSubmit)} >

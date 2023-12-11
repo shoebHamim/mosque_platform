@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const Update = ({ }) => {
+const Update = ({}) => {
   const navigate = useNavigate();
 
   const email=useParams().email

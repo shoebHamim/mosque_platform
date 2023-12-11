@@ -36,7 +36,8 @@ function SingleFeatured() {
             <h6 style={{ fontSize: 'smaller' }}>Division: {mosque.division}</h6>
             <p>{mosque.description}</p>
             <Link to={mosque.infoURL}>
-              <p className="link link-primary">See more details</p>
+
+              <p className=" btn btn-sm mt-6 link link-primary">See more details</p>
             </Link>
           </div>
         ) : null}
@@ -53,7 +54,7 @@ function SingleFeatured() {
         ) : null}
       </div>
 
-      {mosque ? (
+      {/* {mosque ? (
         <div className="text-center">
           <Link to={`/Edit/${mosque._id}`}>
             <button className="btn-sm text-white bg-blue-500 rounded-2xl">
@@ -61,7 +62,7 @@ function SingleFeatured() {
             </button>
           </Link>
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }
