@@ -10,6 +10,7 @@ const mosqueSchema = new mongoose.Schema({
   description:String,
   img:String,
   subscribers:Array,
+  announcements:Array,
 });
 
 const Mosque = mongoose.model('Mosque', mosqueSchema);

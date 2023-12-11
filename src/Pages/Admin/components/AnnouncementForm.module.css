@@ -1,0 +1,40 @@
+/* Announcements.module.css */
+
+.announcementContainer {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+
+  .announcementText {
+    color: #555;
+  }
+  
+  .deleteButton {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .deleteButton:hover {
+    background-color: #0056b3;
+  }
+
+  .textareaField {
+    resize: vertical;
+    width: calc(100% - 24px);
+    margin-bottom: 10px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
