@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './Announcements.module.css'; // Import the CSS module styles
 
-const Announcements = ({ announcements }) => {
+const Announcements = ({ announcements,setAnnouncements }) => {
   const handleClick = async (id) => {
     try {
       const response = await fetch(`http://localhost:5000/announcement/${id}`, {
@@ -12,6 +12,10 @@ const Announcements = ({ announcements }) => {
       });
 
       if (response.ok) {
+        setAnnouncements((prevNews) =>
+        prevNews.filter((singleNews) => singleNews._id !== id)
+      );
+
         toast.success("Announcement successfully deleted from the database.");
       } else {
         toast.error(`Failed to delete announcement. Status code: ${response.status}`);

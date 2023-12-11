@@ -8,7 +8,7 @@ router.get('/idtomail/:id',mosqueControllers.idToEmail)
 router.get('/',mosqueControllers.getAllMosques)
 router.get('/:email',mosqueControllers.mosqueExistsbyEmail)
 router.get('/name/:name',mosqueControllers.mosqueExistsbyName)
-router.delete('/:name',mosqueControllers.deleteMosqueByName)
+router.delete('/:id',mosqueControllers.deleteMosqueById)
 router.put('/:email',mosqueControllers.mosqueUpdatebyEmail);
 
 module.exports=router

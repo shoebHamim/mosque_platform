@@ -5,6 +5,7 @@ import AnnouncementForm from './components/AnnouncementForm';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './Admin.module.css';
+import Registered from '../Registered/Registered';
 
 function Admin() {
     const [announcements, setAnnouncements] = useState([]);
@@ -85,63 +86,22 @@ function Admin() {
       }
     };
 
-    const handleMosqueSearch = async (e) => {
-        try {
-          const nam = encodeURIComponent(searchTerm)
-          const response = await fetch(`http://localhost:5000/mosques/name/${nam}`, {
-            method: 'GET',
-          });
-          if (response.ok) {
-            toast.success("Mosque found in the database.");
-            const data = await response.json();
-            setMosque(data)
-          } else {
-            toast.error('Error fetching data', {
-              position: 'top-right',
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-            });
-          }
-        } catch (error) {
-          console.error('Error:', error);
-          toast.error('Error fetching data', {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
-        }
-      
-    };
+
   
   
     return (
-      <div className={styles.app}>
+      <div className='mx-10' >
       <ToastContainer />
       <h1 className={styles.pageTitle}>Admin Page</h1>
-      <div className={styles.appContainer}>
-        <div className={styles.mosqueSection}>
-          <h2 className={styles.sectionTitle}>Mosque Search</h2>
-          <input
-            type="text"
-            placeholder="Search by Name"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className={styles.inputField}
-          />
-          <button onClick={handleMosqueSearch} className={styles.submitButton}>
-            Search
-          </button>
-          <MosqueList name={mosque} />
+      <div >
+        <div>
+         
+          {/* <MosqueList name={mosque} /> */}
+          <Registered role={'admin'}></Registered>
         </div>
-        <div className={styles.announcementsSection}>
+        <div >
           <h2 className={styles.sectionTitle}>Announcement Form</h2>
-          <AnnouncementForm />
+          <AnnouncementForm setAnnouncements={setAnnouncements} />
           <h2 className={styles.sectionTitle}>Search Announcements</h2>
           <input
             type="text"
@@ -154,7 +114,7 @@ function Admin() {
             Search
           </button>
           <h2 className={styles.sectionTitle}>Announcements</h2>
-          <Announcements announcements={announcements} />
+          <Announcements announcements={announcements} setAnnouncements={setAnnouncements} />
         </div>
       </div>
     </div>

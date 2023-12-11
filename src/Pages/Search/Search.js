@@ -1,13 +1,18 @@
 
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthProvider';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Realm = require("realm-web");
 const app = new Realm.App({ id: process.env.REACT_APP_mongodb_app_id });
 
 
 export default function Search() {
+  const {role}=useContext(AuthContext)
+
   const {searchTerm}=useParams()
   const [searchedMosque,setSearchedMosque]=useState([])
   const [loading,setLoading]=useState(false)
@@ -28,6 +33,20 @@ export default function Search() {
     getSearch()
 
       }, [searchTerm]);
+      const handleDelete = async (id) => {
+        try {
+          const response = await axios.delete(`http://localhost:5000/mosques/${id}`);
+          if(response){
+            toast.success('Mosque Deleted')
+            setSearchedMosque((prevMosques) =>
+             prevMosques.filter((m) => m._id !== id)
+        );
+          }
+  
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
 
 
@@ -71,6 +90,11 @@ export default function Search() {
                              Show Details
                            </button>
                          </Link>
+                         {role==='admin'&&
+                          <button onClick={()=>handleDelete(mosque._id)} className="btn-sm ml-2 text-white btn-error btn ">
+                          Delete
+                         </button>
+                          }
                        </td>
                      </tr>
                    );

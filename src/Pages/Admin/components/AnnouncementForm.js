@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import styles from './AnnouncementForm.module.css';
 
 
-const AnnouncementForm = () => {
+const AnnouncementForm = ({setAnnouncements}) => {
   const [text, setText] = useState('')
 
 
@@ -29,6 +29,7 @@ const AnnouncementForm = () => {
   
       if (response.ok) {
         toast.success("Announcement successfully added to the database.");
+        setAnnouncements((prevNews) =>[...prevNews,announcementData])
       } else {
         toast.error(`Failed to add announcement. Status code: ${response.status}`);
       }

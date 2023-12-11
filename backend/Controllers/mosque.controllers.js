@@ -60,24 +60,13 @@ const mosqueUpdatebyEmail = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
-const deleteMosqueByName = async (req, res) => {
+const deleteMosqueById = async (req, res) => {
   try {
-    const id = req.params.id;
+    const result = await Mosque.findByIdAndDelete(req.params.id);
 
-    // Check if the mosque exists
-    const mosque = await Mosque.findOne({ id: id });
-    if (!mosque) {
-      return res.status(404).json({ message: 'Mosque not found' });
-    }
+    res.send(result)
 
-    // Delete the mosque by name
-    const result = await Mosque.deleteOne({ id: id });
-
-    if (result.deletedCount === 1) {
-      res.status(200).json({ message: 'Mosque deleted successfully' });
-    } else {
-      res.status(500).json({ message: 'Failed to delete mosque' });
-    }
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
@@ -101,4 +90,4 @@ const mosqueExistsbyName = async (req, res) => {
 };
 
 
-module.exports={idToEmail,getAllMosques,mosqueExistsbyEmail,createMosque,mosqueUpdatebyEmail,deleteMosqueByName,mosqueExistsbyName}
+module.exports={idToEmail,getAllMosques,mosqueExistsbyEmail,createMosque,mosqueUpdatebyEmail,deleteMosqueById,mosqueExistsbyName}

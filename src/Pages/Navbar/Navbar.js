@@ -11,7 +11,7 @@ const app = new Realm.App({ id: process.env.REACT_APP_mongodb_app_id });
 const Navbar = () => {
   const navigate = useNavigate();
   const location=useLocation()
-  const { user, logOut, loading } = useContext(AuthContext)
+  const { user, logOut, loading,role } = useContext(AuthContext)
 
 
 
@@ -98,6 +98,11 @@ const Navbar = () => {
             }
 
             {user?.uid ? <>
+            {
+              role==='admin'&&
+              <li><Link to={'/admin/abcd'}>Admin</Link></li>
+
+            }
 
 
               <li onClick={logOut}><Link>{user.email.split('@').shift()} 📤</Link></li>
